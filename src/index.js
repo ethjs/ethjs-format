@@ -1,9 +1,11 @@
 const schema = require('./schema.json');
-const BN = require('bn.js');
+const BN = require('bignumber.js');
 const toBuffer = require('./utils/').toBuffer;
 const stripHexPrefix = require('./utils/').stripHexPrefix;
 const isHexPrefixed = require('./utils/').isHexPrefixed;
 const arrayContainsArray = require('./utils/').arrayContainsArray;
+const getBinarySize = require('./utils/').getBinarySize;
+
 
 // format quantity value, either encode to hex, or decode to BigNumber
 // should intake null, stringNumber, number, BN
@@ -13,8 +15,18 @@ function formatQuantity(value, encode) {
   // if hex string, number string or number, encode into bignumber
   if (typeof value === 'string'
    || typeof value === 'number') {
-    if (String(value).match(/[A-Za-z]/i)) {
-     output = new BN(toBuffer(`0x${stripHexPrefix(value)}`));
+    if (String(value).indexOf('.') !== -1) {
+      throw new Error(`quantity value '${value}' cannot be float`);
+    }
+
+    if (String(value).match(/[A-Za-z]/i) || String(value).length === 0) {
+      var prepString = `0x${toBuffer(`0x${stripHexPrefix(value)}`).toString('hex')}`;
+
+      if (prepString === '0x' || prepString === '') {
+        prepString = '0x0';
+      }
+
+      output = new BN(prepString, 16);
     } else {
      output = new BN(value);
     }
@@ -101,7 +113,7 @@ function formatArray(formatter, value, encode) {
 }
 
 // formatData under strict conditions hex prefix
-function formatData(value) {
+function formatData(value, byteLength) {
   var output = value;
 
   // prefix only under strict conditions, else bypass
@@ -109,6 +121,15 @@ function formatData(value) {
     && value !== null
     && isHexPrefixed(value) === false) {
     output = `0x${value}`;
+  }
+
+  const outputByteLength = getBinarySize(output);
+
+  // throw if bytelength is not correct
+  if (typeof byteLength === 'number'
+    && value !== null && output !== '0x' // support empty values
+    && (!/^[A-Za-z0-9]+$/.test(output) || outputByteLength !== 2 + byteLength * 2)) {
+    throw new Error(`hex string '${output}' must be an alphanumeric ${2 + byteLength * 2} utf8 byte string, is ${outputByteLength} bytes`);
   }
 
   return output;
@@ -125,6 +146,10 @@ function format(formatter, value, encode) {
     output = formatQuantityOrTag(value, encode);
   } else if (formatter === 'DATA') {
     output = formatData(value); // dont format data flagged objects like compiler output
+  } else if (formatter === 'DATA20') {
+    output = formatData(value, 20); // dont format data flagged objects like compiler output
+  } else if (formatter === 'DATA32') {
+    output = formatData(value, 32); // dont format data flagged objects like compiler output
   } else {
     // if value is an object or array
     if (typeof value === 'object'

@@ -60,6 +60,15 @@ exports.intToBuffer = function (i) {
 };
 
 /**
+ * Get the binary size of a string
+ * @param {String} str
+ * @return {Number}
+ */
+exports.getBinarySize = function(str) {
+  return Buffer.byteLength(str, 'utf8');
+}
+
+/**
  * Attempts to turn a value into a `Buffer`. As input it supports `Buffer`, `String`, `Number`, null/undefined, `BN` and other objects with a `toArray()` method.
  * @param {*} v the value
  */

@@ -51,7 +51,7 @@ const inputPayload = format.formatInputs('eth_getBalance', ["0x407d73d8a49eeb85d
 
 const outputPayload = format.formatOutputs('eth_getBalance', "0x0234c8a3397aab58");
 
-// result <BN ...>
+// result <BigNumber ...>
 // result outputPayload.toString(10) 158972490234375000
 ```
 
@@ -65,11 +65,11 @@ A straight forward and complete RPC formatting layer for the Ethereum RPC spec.
 
 ### Quantities
 
-  Will encode quantities such as: `BN`, `'string nums'`, `numbers` into hex. Decodes hex numbers into `BN` objects. Very much like web3.js but with `bn.js` instead of `BigNumber.js`.
+  Will encode quantities such as: `BigNumber`, `'string nums'`, `numbers` into hex. Decodes hex numbers into `BigNumber` objects. Very much like web3.js.
 
 ### Data
 
-  Will very carefully prefix unprefixed data such as `{data: ''}` to `{data: '0x'}` for encoding. Otherwise does nothing to DATA typed fields in or out.
+  Will very carefully prefix unprefixed data such as `{data: ''}` to `{data: '0x'}` for encoding. Otherwise does nothing to DATA typed fields in or out. 32 and 20 byte data requirements are enforced across all incoming and outgoing payloads, however `0x` empty data is allowed.
 
 ### Objects
 
@@ -81,7 +81,7 @@ A straight forward and complete RPC formatting layer for the Ethereum RPC spec.
   const inputPayload = format.formatInputs('eth_sendTransaction', [{
     "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
     "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-    "gas": new BN("30400"), // 30400,
+    "gas": new BigNumber("30400"), // 30400,
     "gasPrice": "10000000000000", // 10000000000000
     "value": 2441406250, // 2441406250
     "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
@@ -173,7 +173,7 @@ shh_getMessages
 
 ## Contributing
 
-Please help better the ecosystem by submitting issues and pull requests to default. We need all the help we can get to build the absolute best linting standards and utilities. We follow the AirBNB linting standard. Please read more about contributing to `ethjs-format` in the `CONTRIBUTING.md`.
+Please help better the ecosystem by submitting issues and pull requests to default. We need all the help we can get to build the absolute best linting standards and utilities. We follow the AirBigNumberB linting standard. Please read more about contributing to `ethjs-format` in the `CONTRIBUTING.md`.
 
 <!--
 ## Guides
