@@ -1,3 +1,7 @@
+# 0.0.7 -- more schema updates
+
+1. Define requirements further for length of calls like ssh_post etc.
+
 # 0.0.6 -- handle BlockFilter and PendingTransactionFilter
 
 1. Handle the bad design caveit of tx or FilterChange result
