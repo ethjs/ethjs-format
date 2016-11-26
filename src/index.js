@@ -1,11 +1,10 @@
 const schema = require('./schema.json');
 const BN = require('bignumber.js');
-const toBuffer = require('./utils/').toBuffer;
-const stripHexPrefix = require('./utils/').stripHexPrefix;
-const isHexPrefixed = require('./utils/').isHexPrefixed;
-const arrayContainsArray = require('./utils/').arrayContainsArray;
-const getBinarySize = require('./utils/').getBinarySize;
-
+const toBuffer = require('ethjs-util').toBuffer;
+const stripHexPrefix = require('ethjs-util').stripHexPrefix;
+const isHexPrefixed = require('ethjs-util').isHexPrefixed;
+const arrayContainsArray = require('ethjs-util').arrayContainsArray;
+const getBinarySize = require('ethjs-util').getBinarySize;
 
 // format quantity value, either encode to hex, or decode to BigNumber
 // should intake null, stringNumber, number, BN
@@ -84,13 +83,20 @@ function formatObject(formatter, value, encode) {
 }
 
 // format array
-function formatArray(formatter, value, encode) {
+function formatArray(formatter, value, encode, lengthRequirement) {
   var output = value.slice();
   var formatObject = formatter;
 
   // if the formatter is an array or data, then make format object an array data
   if (formatter === 'Array|DATA') {
     formatObject = ['DATA'];
+  }
+
+  // enforce minimum value length requirements
+  if (encode === true
+    && typeof lengthRequirement === 'number'
+    && value.length < lengthRequirement) {
+    throw new Error(`array ${JSON.stringify(value)} must contain at least ${lengthRequirement} params, but only contains ${value.length}.`)
   }
 
   // make new array, avoid mutation
@@ -136,7 +142,7 @@ function formatData(value, byteLength) {
 }
 
 // format payload encode or decode, bypass string, Boolean, DATA
-function format(formatter, value, encode) {
+function format(formatter, value, encode, lengthRequirement) {
   var output = value;
 
   // if formatter is quantity or quantity or tag
@@ -157,7 +163,7 @@ function format(formatter, value, encode) {
       && Array.isArray(value) === false) {
       output = formatObject(formatter, value, encode);
     } else if (Array.isArray(value)) {
-      output = formatArray(formatter, value, encode);
+      output = formatArray(formatter, value, encode, lengthRequirement);
     }
   }
 
@@ -167,7 +173,7 @@ function format(formatter, value, encode) {
 // format method inputs, assume values is array
 // return formatted array
 function formatInputs(method, inputs) {
-  return format(schema.methods[method][0], inputs, true);
+  return format(schema.methods[method][0], inputs, true, schema.methods[method][2]);
 }
 
 // format method inputs, assume values is array

@@ -1,3 +1,8 @@
+# 0.0.3 -- enforce input param requirements
+
+1. enforce input param requirements
+2. ethjs-util integration
+
 # 0.0.2 -- ethjs-format
 
 1. handle quantity floats with error (no floats on chain)

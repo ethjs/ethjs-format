@@ -1,6 +1,6 @@
 {
   "name": "ethjs-format",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A payload formatter for the Ethereum RPC layer.",
   "main": "./src/index.js",
   "scripts": {
@@ -33,7 +33,8 @@
     "mocha": "^3.1.2"
   },
   "dependencies": {
-    "assert": "^1.4.1",
-    "bignumber.js": "^3.0.1"
+    "ethjs-util": "0.0.1",
+    "assert": "1.4.1",
+    "bignumber.js": "3.0.1"
   }
 }

@@ -696,6 +696,14 @@ describe('test ethjs-format object', () => {
   });
 
   describe('test formatOutputs', () => {
+    it ('should handle invalid eth_getTransactionByBlockHashAndIndex normally', () => {
+      try {
+        const decodedHashRate = format.formatInputs('eth_getTransactionByBlockHashAndIndex', ['0x']);
+      } catch (error) {
+        assert.equal(typeof error, 'object');
+      }
+    });
+
     it ('should handle eth_hashrate normally', () => {
       const decodedHashRate = format.formatOutputs('eth_hashrate', "0x38a");
 
