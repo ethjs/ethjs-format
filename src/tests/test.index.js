@@ -8,15 +8,15 @@ describe('test ethjs-format object', () => {
     it('should encode normally', () => {
       const bignum = new BN(45333);
       const num = 327243762;
-      const stringNumber = "238428237842";
-      const noPrefixHexNumber = "21D21A2";
-      const prefixHexNumber = "0x21D21A2";
+      const stringNumber = '238428237842';
+      const noPrefixHexNumber = '21D21A2';
+      const prefixHexNumber = '0x21D21A2';
       const nullNumber = null;
       const undefinedNumber = undefined;
-      const emptyString = "";
+      const emptyString = '';
       const zeroNumber = 0;
-      const justPrefix = "0x";
-      const floatNumber = "238428.237842";
+      const justPrefix = '0x';
+      const floatNumber = '238428.237842';
 
       assert.equal(format.formatQuantity(emptyString, true), '0x0');
       assert.equal(format.formatQuantity(zeroNumber, true), '0x0');
@@ -37,18 +37,18 @@ describe('test ethjs-format object', () => {
     });
 
     it('should decode normally', () => {
-      const prefixHexNumber = "0x57840CC2C";
-      const noPrefixHexNumber = "21D21A2";
-      const largeHexNumber = "0x2386F26FC0FFFF";
+      const prefixHexNumber = '0x57840CC2C';
+      const noPrefixHexNumber = '21D21A2';
+      const largeHexNumber = '0x2386F26FC0FFFF';
       const bignum = new BN(45333);
       const num = 327243762;
-      const stringNumber = "238428237842";
+      const stringNumber = '238428237842';
       const nullNumber = null;
       const undefinedNumber = undefined;
-      const emptyString = "";
+      const emptyString = '';
       const zeroNumber = 0;
       const justPrefix = '0x';
-      const floatNumber = "238428.237842";
+      const floatNumber = '238428.237842';
 
       const r1 = format.formatQuantity(prefixHexNumber, false).toString(10);
       const r2 = format.formatQuantity(noPrefixHexNumber, false).toString(10);
@@ -85,14 +85,14 @@ describe('test ethjs-format object', () => {
     it('should encode normally', () => {
       const bignum = new BN(45333);
       const num = 327243762;
-      const stringNumber = "238428237842";
-      const noPrefixHexNumber = "21D21A2";
-      const prefixHexNumber = "0x21D21A2";
+      const stringNumber = '238428237842';
+      const noPrefixHexNumber = '21D21A2';
+      const prefixHexNumber = '0x21D21A2';
       const nullNumber = null;
       const undefinedNumber = undefined;
-      const pendingTag = "pending";
-      const latestTag = "pending";
-      const earliestTag = "earliest";
+      const pendingTag = 'pending';
+      const latestTag = 'pending';
+      const earliestTag = 'earliest';
 
       assert.equal(format.formatQuantityOrTag(pendingTag, true), pendingTag);
       assert.equal(format.formatQuantityOrTag(latestTag, true), latestTag);
@@ -108,17 +108,17 @@ describe('test ethjs-format object', () => {
     });
 
     it('should decode normally', () => {
-      const prefixHexNumber = "0x57840CC2C";
-      const noPrefixHexNumber = "21D21A2";
-      const largeHexNumber = "0x2386F26FC0FFFF";
+      const prefixHexNumber = '0x57840CC2C';
+      const noPrefixHexNumber = '21D21A2';
+      const largeHexNumber = '0x2386F26FC0FFFF';
       const bignum = new BN(45333);
       const num = 327243762;
-      const stringNumber = "238428237842";
+      const stringNumber = '238428237842';
       const nullNumber = null;
       const undefinedNumber = undefined;
-      const pendingTag = "pending";
-      const latestTag = "pending";
-      const earliestTag = "earliest";
+      const pendingTag = 'pending';
+      const latestTag = 'pending';
+      const earliestTag = 'earliest';
 
       assert.equal(format.formatQuantityOrTag(pendingTag, false), pendingTag);
       assert.equal(format.formatQuantityOrTag(latestTag, false), latestTag);
@@ -154,14 +154,14 @@ describe('test ethjs-format object', () => {
         gasUsed: '0x4dc', // 1244
         contractAddress: '0xb60e8dd61c5d32be8058bb8eb970870f07233155', // or null, if none was created
         logs: [{
-          "logIndex": "0x1", // 1
-          "blockNumber":"0x1b4", // 436
-          "blockHash": "0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d31",
-          "transactionHash":  "0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55",
-          "transactionIndex": "0x0", // 0
-          "address": "0x16c5785ac562ff41e2dcfdf829c5a142f1fccd7d",
-          "data":"0x0000000000000000000000000000000000000000000000000000000000000000",
-          "topics": ["0x59ebeb90bc63057b6515673c3ecf9438e5058bca0f92585014eced636878c9a5"]
+          'logIndex': '0x1', // 1
+          'blockNumber':'0x1b4', // 436
+          'blockHash': '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d31',
+          'transactionHash':  '0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55',
+          'transactionIndex': '0x0', // 0
+          'address': '0x16c5785ac562ff41e2dcfdf829c5a142f1fccd7d',
+          'data':'0x0000000000000000000000000000000000000000000000000000000000000000',
+          'topics': ['0x59ebeb90bc63057b6515673c3ecf9438e5058bca0f92585014eced636878c9a5']
         }],
       };
 
@@ -190,17 +190,17 @@ describe('test ethjs-format object', () => {
 
     it('transaction object should decode normally', () => {
       const encodedTransactionObject = {
-        "hash":"0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b",
-        "nonce":"0x",
-        "blockHash": "0xbeab0aa2411b7ab17f30a99d3cb9c6ef2fc5426d6ad6fd9e2a26a6aed1d1055b",
-        "blockNumber": "0x15df", // 5599
-        "transactionIndex":  "0x1", // 1
-        "from":"0x407d73d8a49eeb85d32cf465507dd71d507100c1",
-        "to":"0x85h43d8a49eeb85d32cf465507dd71d507100c12",
-        "value":"0x7f110", // 520464
-        "gas": "0x7f110", // 520464
-        "gasPrice":"0x09184e72a000",
-        "input":"0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360",
+        'hash':'0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b',
+        'nonce':'0x',
+        'blockHash': '0xbeab0aa2411b7ab17f30a99d3cb9c6ef2fc5426d6ad6fd9e2a26a6aed1d1055b',
+        'blockNumber': '0x15df', // 5599
+        'transactionIndex':  '0x1', // 1
+        'from':'0x407d73d8a49eeb85d32cf465507dd71d507100c1',
+        'to':'0x85h43d8a49eeb85d32cf465507dd71d507100c12',
+        'value':'0x7f110', // 520464
+        'gas': '0x7f110', // 520464
+        'gasPrice':'0x09184e72a000',
+        'input':'0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360',
       };
 
       const decodedObject = format.formatObject('Transaction', encodedTransactionObject, false);
@@ -220,38 +220,38 @@ describe('test ethjs-format object', () => {
 
     it('should decode Block object normally', () => {
       const encodedTransactionObject = {
-        "hash":"0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b",
-        "nonce":"0x",
-        "blockHash": "0xbeab0aa2411b7ab17f30a99d3cb9c6ef2fc5426d6ad6fd9e2a26a6aed1d1055b",
-        "blockNumber": "0x15df", // 5599
-        "transactionIndex":  "0x1", // 1
-        "from":"0x407d73d8a49eeb85d32cf465507dd71d507100c1",
-        "to":"0x85h43d8a49eeb85d32cf465507dd71d507100c12",
-        "value":"0x7f110", // 520464
-        "gas": "0x7f110", // 520464
-        "gasPrice":"0x09184e72a000",
-        "input":"0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360",
+        'hash':'0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b',
+        'nonce':'0x',
+        'blockHash': '0xbeab0aa2411b7ab17f30a99d3cb9c6ef2fc5426d6ad6fd9e2a26a6aed1d1055b',
+        'blockNumber': '0x15df', // 5599
+        'transactionIndex':  '0x1', // 1
+        'from':'0x407d73d8a49eeb85d32cf465507dd71d507100c1',
+        'to':'0x85h43d8a49eeb85d32cf465507dd71d507100c12',
+        'value':'0x7f110', // 520464
+        'gas': '0x7f110', // 520464
+        'gasPrice':'0x09184e72a000',
+        'input':'0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360',
       };
 
       const encodedBlockObject = {
-        "number": "0x1b4", // 436
-        "hash": "0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32",
-        "parentHash": "0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5",
-        "nonce": "0xe04d296d2460cfb8472af2c5fd05b5a214109c25688d3704aed5484f9a7792f2",
-        "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
-        "logsBloom": "0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32",
-        "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
-        "stateRoot": "0xd5855eb08b3387c0af375e9cdb6acfc05eb8f519e419b874b6ff2ffda7ed1dff",
-        "miner": "0x4e65fda2159562a496f9f3522f89122a3088497a",
-        "difficulty": "0x027f07", // 163591
-        "totalDifficulty":  "0x027f07", // 163591
-        "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000",
-        "size":  "0x027f07", // 163591
-        "gasLimit": "0x9f759", // 653145
-        "gasUsed": "0x9f759", // 653145
-        "timestamp": "0x54e34e8e", // 1424182926
-        "transactions": ["0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32", encodedTransactionObject],
-        "uncles": ["0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5", "0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5"],
+        'number': '0x1b4', // 436
+        'hash': '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32',
+        'parentHash': '0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5',
+        'nonce': '0xe04d296d2460cfb8472af2c5fd05b5a214109c25688d3704aed5484f9a7792f2',
+        'sha3Uncles': '0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347',
+        'logsBloom': '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32',
+        'transactionsRoot': '0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421',
+        'stateRoot': '0xd5855eb08b3387c0af375e9cdb6acfc05eb8f519e419b874b6ff2ffda7ed1dff',
+        'miner': '0x4e65fda2159562a496f9f3522f89122a3088497a',
+        'difficulty': '0x027f07', // 163591
+        'totalDifficulty':  '0x027f07', // 163591
+        'extraData': '0x0000000000000000000000000000000000000000000000000000000000000000',
+        'size':  '0x027f07', // 163591
+        'gasLimit': '0x9f759', // 653145
+        'gasUsed': '0x9f759', // 653145
+        'timestamp': '0x54e34e8e', // 1424182926
+        'transactions': ['0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32', encodedTransactionObject],
+        'uncles': ['0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5', '0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5'],
       };
 
       const decodedObject = format.formatObject('Block', encodedBlockObject, false);
@@ -276,8 +276,8 @@ describe('test ethjs-format object', () => {
       assert.equal(Array.isArray(decodedObject.transactions), true);
       assert.equal(Array.isArray(decodedObject.uncles), true);
 
-      assert.equal(decodedObject.transactions[0], "0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32");
-      assert.equal(decodedObject.uncles[0], "0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5");
+      assert.equal(decodedObject.transactions[0], '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32');
+      assert.equal(decodedObject.uncles[0], '0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5');
 
       assert.equal(decodedObject.transactions[1].hash, '0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b');
       assert.equal(decodedObject.transactions[1].nonce.toString(10), '0');
@@ -296,8 +296,8 @@ describe('test ethjs-format object', () => {
       const decodedFilterObject = {
         fromBlock: 89886779,
         toBlock: 'latest',
-        "address": "0x8888f1f195afa192cfee860698584c030f4c9db1",
-        "topics": ["0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b", null, ['0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b', '0x000000000000000000000000aff3454fce5edbc8cca8697c15331677e6ebccc']],
+        'address': '0x8888f1f195afa192cfee860698584c030f4c9db1',
+        'topics': ['0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b', null, ['0x000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b', '0x000000000000000000000000aff3454fce5edbc8cca8697c15331677e6ebccc']],
       };
 
       const encodedObject = format.formatObject('Filter', decodedFilterObject, true);
@@ -309,12 +309,12 @@ describe('test ethjs-format object', () => {
 
     it('should decode send transaction object normally', () => {
       const encodedSendTransactionObject = {
-        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-        "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-        "gas": "0x76c0", // 30400,
-        "gasPrice": "0x9184e72a000", // 10000000000000
-        "value": "0x9184e72a", // 2441406250
-        "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+        'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+        'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+        'gas': '0x76c0', // 30400,
+        'gasPrice': '0x9184e72a000', // 10000000000000
+        'value': '0x9184e72a', // 2441406250
+        'data': '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       };
 
       const decodedObject = format.formatObject('SendTransaction', encodedSendTransactionObject, false);
@@ -330,12 +330,12 @@ describe('test ethjs-format object', () => {
 
     it('should encode SendTransaction object normally', () => {
       const decodedSendTransactionObject_1 = {
-        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-        "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-        "gas": "30400", // 30400,
-        "gasPrice": "10000000000000", // 10000000000000
-        "value": "2441406250", // 2441406250
-        "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+        'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+        'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+        'gas': '30400', // 30400,
+        'gasPrice': '10000000000000', // 10000000000000
+        'value': '2441406250', // 2441406250
+        'data': '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       };
 
       const encodedObject_1 = format.formatObject('SendTransaction', decodedSendTransactionObject_1, true);
@@ -349,11 +349,11 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_1.value, '0x9184e72a');
 
       const decodedSendTransactionObject_2 = {
-        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-        "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-        "gas": new BN("30400"), // 30400,
-        "gasPrice": "10000000000000", // 10000000000000
-        "data": "0x",
+        'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+        'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+        'gas': new BN('30400'), // 30400,
+        'gasPrice': '10000000000000', // 10000000000000
+        'data': '0x',
       };
 
       const encodedObject_2 = format.formatObject('SendTransaction', decodedSendTransactionObject_2, true);
@@ -366,10 +366,10 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_2.gasPrice, '0x9184e72a000');
 
       const decodedSendTransactionObject_3 = {
-        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-        "gas": 30400, // 30400,
-        "gasPrice": "10000000000000", // 10000000000000
-        "data": "0x",
+        'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+        'gas': 30400, // 30400,
+        'gasPrice': '10000000000000', // 10000000000000
+        'data': '0x',
       };
 
       const encodedObject_3 = format.formatObject('SendTransaction', decodedSendTransactionObject_3, true);
@@ -381,10 +381,10 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_3.gasPrice, '0x9184e72a000');
 
       const decodedSendTransactionObject_4 = {
-        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-        "gas": 348978973, // 30400,
-        "data": "0x",
-        "gasPrice": new BN(10000000000000), // 10000000000000
+        'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+        'gas': 348978973, // 30400,
+        'data': '0x',
+        'gasPrice': new BN(10000000000000), // 10000000000000
       };
 
       const encodedObject_4 = format.formatObject('SendTransaction', decodedSendTransactionObject_4, true);
@@ -396,10 +396,10 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_4.gasPrice, '0x9184e72a000');
 
       const decodedSendTransactionObject_5 = {
-        "from": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-        "gas": new BN(10000000000000), // 30400,
-        "data": "0x",
-        "gasPrice": 348978973, // 10000000000000
+        'from': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+        'gas': new BN(10000000000000), // 30400,
+        'data': '0x',
+        'gasPrice': 348978973, // 10000000000000
       };
 
       const encodedObject_5 = format.formatObject('SendTransaction', decodedSendTransactionObject_5, true);
@@ -417,9 +417,9 @@ describe('test ethjs-format object', () => {
     it('should encode QUANTITY normally', () => {
       const bignum = new BN(45333);
       const num = 327243762;
-      const stringNumber = "238428237842";
-      const noPrefixHexNumber = "21D21A2";
-      const prefixHexNumber = "0x21D21A2";
+      const stringNumber = '238428237842';
+      const noPrefixHexNumber = '21D21A2';
+      const prefixHexNumber = '0x21D21A2';
       const nullNumber = null;
       const undefinedNumber = undefined;
 
@@ -433,15 +433,15 @@ describe('test ethjs-format object', () => {
     });
 
     it('should decode QUANTITY normally', () => {
-      const prefixHexNumber = "0x57840CC2C";
-      const noPrefixHexNumber = "21D21A2";
-      const largeHexNumber = "0x2386F26FC0FFFF";
+      const prefixHexNumber = '0x57840CC2C';
+      const noPrefixHexNumber = '21D21A2';
+      const largeHexNumber = '0x2386F26FC0FFFF';
       const bignum = new BN(45333);
       const num = 327243762;
-      const stringNumber = "238428237842";
+      const stringNumber = '238428237842';
       const nullNumber = null;
       const undefinedNumber = undefined;
-      const emptyString = "";
+      const emptyString = '';
       const zeroNumber = 0;
 
       const r1 = format.format('QUANTITY', prefixHexNumber, false).toString(10);
@@ -469,14 +469,14 @@ describe('test ethjs-format object', () => {
     it('should encode QUANTITY|TAG normally', () => {
       const bignum = new BN(45333);
       const num = 327243762;
-      const stringNumber = "238428237842";
-      const noPrefixHexNumber = "21D21A2";
-      const prefixHexNumber = "0x21D21A2";
+      const stringNumber = '238428237842';
+      const noPrefixHexNumber = '21D21A2';
+      const prefixHexNumber = '0x21D21A2';
       const nullNumber = null;
       const undefinedNumber = undefined;
-      const pendingTag = "pending";
-      const latestTag = "pending";
-      const earliestTag = "earliest";
+      const pendingTag = 'pending';
+      const latestTag = 'pending';
+      const earliestTag = 'earliest';
 
       assert.equal(format.format('QUANTITY|TAG', pendingTag, true), pendingTag);
       assert.equal(format.format('QUANTITY|TAG', latestTag, true), latestTag);
@@ -492,17 +492,17 @@ describe('test ethjs-format object', () => {
     });
 
     it('should decode QUANTITY|TAG normally', () => {
-      const prefixHexNumber = "0x57840CC2C";
-      const noPrefixHexNumber = "21D21A2";
-      const largeHexNumber = "0x2386F26FC0FFFF";
+      const prefixHexNumber = '0x57840CC2C';
+      const noPrefixHexNumber = '21D21A2';
+      const largeHexNumber = '0x2386F26FC0FFFF';
       const bignum = new BN(45333);
       const num = 327243762;
-      const stringNumber = "238428237842";
+      const stringNumber = '238428237842';
       const nullNumber = null;
       const undefinedNumber = undefined;
-      const pendingTag = "pending";
-      const latestTag = "pending";
-      const earliestTag = "earliest";
+      const pendingTag = 'pending';
+      const latestTag = 'pending';
+      const earliestTag = 'earliest';
 
       assert.equal(format.format('QUANTITY|TAG', pendingTag, false), pendingTag);
       assert.equal(format.format('QUANTITY|TAG', latestTag, false), latestTag);
@@ -528,12 +528,12 @@ describe('test ethjs-format object', () => {
 
     it('should decode object SendTransaction object normally', () => {
       const encodedSendTransactionObject = {
-        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-        "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-        "gas": "", // 30400,
-        "gasPrice": "0x9184e72a000", // 10000000000000
-        "value": "0x9184e72a", // 2441406250
-        "data": ""
+        'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+        'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+        'gas': '', // 30400,
+        'gasPrice': '0x9184e72a000', // 10000000000000
+        'value': '0x9184e72a', // 2441406250
+        'data': ''
       };
 
       const decodedObject = format.format('SendTransaction', encodedSendTransactionObject, false);
@@ -549,12 +549,12 @@ describe('test ethjs-format object', () => {
 
     it('should encode object SendTransaction object normally', () => {
       const decodedSendTransactionObject_1 = {
-        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-        "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-        "gas": new BN("30400"), // 30400,
-        "gasPrice": "10000000000000", // 10000000000000
-        "value": 2441406250, // 2441406250
-        "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+        'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+        'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+        'gas': new BN('30400'), // 30400,
+        'gasPrice': '10000000000000', // 10000000000000
+        'value': 2441406250, // 2441406250
+        'data': '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       };
 
       const encodedObject_1 = format.format('SendTransaction', decodedSendTransactionObject_1, true);
@@ -656,13 +656,13 @@ describe('test ethjs-format object', () => {
 
   describe('test formatInputs', () => {
     it ('should handle eth_getBalance normally', () => {
-      const encodedBalance = format.formatInputs('eth_getBalance', ["0xb60e8dd61c5d32be8058bb8eb970870f07233155"]);
+      const encodedBalance = format.formatInputs('eth_getBalance', ['0xb60e8dd61c5d32be8058bb8eb970870f07233155']);
 
       assert.equal(encodedBalance, '0xb60e8dd61c5d32be8058bb8eb970870f07233155');
     });
 
     it ('should handle eth_getBalance 2 arguments normally', () => {
-      const encodedBalance = format.formatInputs('eth_getBalance', ["0xb60e8dd61c5d32be8058bb8eb970870f07233155", "latest"]);
+      const encodedBalance = format.formatInputs('eth_getBalance', ['0xb60e8dd61c5d32be8058bb8eb970870f07233155', 'latest']);
 
       assert.equal(encodedBalance[0], '0xb60e8dd61c5d32be8058bb8eb970870f07233155');
       assert.equal(encodedBalance[1], 'latest');
@@ -670,12 +670,12 @@ describe('test ethjs-format object', () => {
 
     it ('should handle eth_sendTransaction normally', () => {
       const encodedSendTransaction = format.formatInputs('eth_sendTransaction', [{
-        "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-        "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-        "gas": new BN("30400"), // 30400,
-        "gasPrice": "10000000000000", // 10000000000000
-        "value": 2441406250, // 2441406250
-        "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
+        'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
+        'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+        'gas': new BN('30400'), // 30400,
+        'gasPrice': '10000000000000', // 10000000000000
+        'value': 2441406250, // 2441406250
+        'data': '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       }]);
       const encodedSendTransactionProper = [{
         from: '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
@@ -704,14 +704,26 @@ describe('test ethjs-format object', () => {
       }
     });
 
+    it ('should handle eth_getFilterChanges normally during eth_newBlockFilter', () => {
+      const decodedTxHashArray = format.formatOutputs('eth_getFilterChanges', ['0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55', '0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55']);
+
+      assert.equal(decodedTxHashArray.toString(10), ['0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55', '0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55']);
+    });
+
+    it ('should handle eth_getFilterChanges normally during eth_newPendingTransactionFilter', () => {
+      const decodedTxHashArray = format.formatOutputs('eth_getFilterChanges', ['0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55', '0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55']);
+
+      assert.equal(decodedTxHashArray.toString(10), ['0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55', '0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55']);
+    });
+
     it ('should handle eth_hashrate normally', () => {
-      const decodedHashRate = format.formatOutputs('eth_hashrate', "0x38a");
+      const decodedHashRate = format.formatOutputs('eth_hashrate', '0x38a');
 
       assert.equal(decodedHashRate.toString(10), '906');
     });
 
     it ('should handle eth_getBalance normally', () => {
-      const decodedBalance = format.formatOutputs('eth_getBalance', "0x38a");
+      const decodedBalance = format.formatOutputs('eth_getBalance', '0x38a');
 
       assert.equal(decodedBalance.toString(10), '906');
     });
@@ -735,7 +747,7 @@ describe('test ethjs-format object', () => {
     });
 
     it ('should handle eth_accounts normally', () => {
-      const decodedEthAccounts = format.formatOutputs('eth_accounts', ["0x407d73d8a49eeb85d32cf465507dd71d507100c1", "0x407d73d8a49eeb85d32cf465507dd71d507100c1", "0x407d73d8a49eeb85d32cf465507dd71d507100c1"]);
+      const decodedEthAccounts = format.formatOutputs('eth_accounts', ['0x407d73d8a49eeb85d32cf465507dd71d507100c1', '0x407d73d8a49eeb85d32cf465507dd71d507100c1', '0x407d73d8a49eeb85d32cf465507dd71d507100c1']);
 
       assert.equal(decodedEthAccounts[0], '0x407d73d8a49eeb85d32cf465507dd71d507100c1');
       assert.equal(decodedEthAccounts[1], '0x407d73d8a49eeb85d32cf465507dd71d507100c1');
@@ -750,23 +762,23 @@ describe('test ethjs-format object', () => {
 
     it ('should handle eth_getFilterChanges normally', () => {
       const decodedFilterChanges = format.formatOutputs('eth_getFilterChanges', [{
-        "logIndex": "0x1", // 1
-        "blockNumber":"0x1b4", // 436
-        "blockHash": "0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d21",
-        "transactionHash":  "0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55",
-        "transactionIndex": "0x0", // 0
-        "address": "0x16c5785ac562ff41e2dcfdf829c5a142f1fccd7d",
-        "data":"0x0000000000000000000000000000000000000000000000000000000000000000",
-        "topics": ["0x59ebeb90bc63057b6515673c3ecf9438e5058bca0f92585014eced636878c9a5"]
+        'logIndex': '0x1', // 1
+        'blockNumber':'0x1b4', // 436
+        'blockHash': '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d21',
+        'transactionHash':  '0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55',
+        'transactionIndex': '0x0', // 0
+        'address': '0x16c5785ac562ff41e2dcfdf829c5a142f1fccd7d',
+        'data':'0x0000000000000000000000000000000000000000000000000000000000000000',
+        'topics': ['0x59ebeb90bc63057b6515673c3ecf9438e5058bca0f92585014eced636878c9a5']
       }, {
-        "logIndex": "0x1", // 1
-        "blockNumber":"0x1b4", // 436
-        "blockHash": "0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d21",
-        "transactionHash":  "0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55",
-        "transactionIndex": "0x0", // 0
-        "address": "0x16c5785ac562ff41e2dcfdf829c5a142f1fccd7d",
-        "data":"0x0000000000000000000000000000000000000000000000000000000000000000",
-        "topics": ["0x59ebeb90bc63057b6515673c3ecf9438e5058bca0f92585014eced636878c9a5"]
+        'logIndex': '0x1', // 1
+        'blockNumber':'0x1b4', // 436
+        'blockHash': '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d21',
+        'transactionHash':  '0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55',
+        'transactionIndex': '0x0', // 0
+        'address': '0x16c5785ac562ff41e2dcfdf829c5a142f1fccd7d',
+        'data':'0x0000000000000000000000000000000000000000000000000000000000000000',
+        'topics': ['0x59ebeb90bc63057b6515673c3ecf9438e5058bca0f92585014eced636878c9a5']
       }]);
 
       assert.equal(decodedFilterChanges[0].logIndex.toString(10), '1');

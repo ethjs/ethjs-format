@@ -92,6 +92,12 @@ function formatArray(formatter, value, encode, lengthRequirement) {
     formatObject = ['DATA'];
   }
 
+  // if formatter is a FilterChange and acts like a BlockFilter
+  // or PendingTx change format object to tx hash array
+  if (formatter === 'FilterChange' && typeof value[0] === 'string') {
+    formatObject = ['DATA32'];
+  }
+
   // enforce minimum value length requirements
   if (encode === true
     && typeof lengthRequirement === 'number'
