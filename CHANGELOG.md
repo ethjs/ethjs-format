@@ -1,3 +1,7 @@
+# 0.0.5 -- minor fix on eth_getCode
+
+1. minor fix on eth_getCode, requires 1 not 2 param length
+
 # 0.0.4 -- minor fix on eth_txCount..
 
 1. minor fix on eth_getTransactionCount, required 2 instead of 1..

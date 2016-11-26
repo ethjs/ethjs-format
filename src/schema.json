@@ -20,7 +20,7 @@
     "eth_getBlockTransactionCountByNumber": [["QUANTITY|TAG"], "QUANTITY", 1],
     "eth_getUncleCountByBlockHash": [["DATA32"], "QUANTITY", 1],
     "eth_getUncleCountByBlockNumber": [["QUANTITY"], "QUANTITY", 1],
-    "eth_getCode": [["DATA20", "QUANTITY|TAG"], "DATA", 2],
+    "eth_getCode": [["DATA20", "QUANTITY|TAG"], "DATA", 1],
     "eth_sign": [["DATA20", "DATA32"], "DATA", 2],
     "eth_sendTransaction": [["SendTransaction"], "DATA", 1],
     "eth_sendRawTransaction": [["DATA"], "DATA32", 1],
