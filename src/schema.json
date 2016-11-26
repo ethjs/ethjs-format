@@ -15,7 +15,7 @@
     "eth_blockNumber": [[], "QUANTITY"],
     "eth_getBalance": [["DATA20", "QUANTITY|TAG"], "QUANTITY", 1],
     "eth_getStorageAt": [["DATA20", "QUANTITY", "QUANTITY|TAG"], "DATA"],
-    "eth_getTransactionCount": [["DATA20", "QUANTITY|TAG"], "QUANTITY", 2],
+    "eth_getTransactionCount": [["DATA20", "QUANTITY|TAG"], "QUANTITY", 1],
     "eth_getBlockTransactionCountByHash": [["DATA32"], "QUANTITY", 1],
     "eth_getBlockTransactionCountByNumber": [["QUANTITY|TAG"], "QUANTITY", 1],
     "eth_getUncleCountByBlockHash": [["DATA32"], "QUANTITY", 1],

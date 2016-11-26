@@ -1,3 +1,7 @@
+# 0.0.4 -- minor fix on eth_txCount..
+
+1. minor fix on eth_getTransactionCount, required 2 instead of 1..
+
 # 0.0.3 -- enforce input param requirements
 
 1. enforce input param requirements
