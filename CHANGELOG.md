@@ -1,3 +1,11 @@
+# 0.0.9 -- more schema details for adding
+
+1. Added additional data for the "latest" tag, flagged as:
+  [0] inputs
+  [1] outputs
+  [2] minimum required input array length
+  [3] if === 2 ? `latest` : ``
+
 # 0.0.8 -- expose schema in exports
 
 1. Expose entire schema in exports for other modules to use

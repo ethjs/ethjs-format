@@ -6,9 +6,6 @@ const isHexPrefixed = require('ethjs-util').isHexPrefixed;
 const arrayContainsArray = require('ethjs-util').arrayContainsArray;
 const getBinarySize = require('ethjs-util').getBinarySize;
 
-// format quantity value, either encode to hex, or decode to BigNumber
-// should intake null, stringNumber, number, BN
-
 /**
  * Format quantity values, either encode to hex or decode to BigNumber
  * should intake null, stringNumber, number, BN
