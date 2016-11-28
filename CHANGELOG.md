@@ -1,3 +1,8 @@
+# 0.0.8 -- expose schema in exports
+
+1. Expose entire schema in exports for other modules to use
+2. More code comments
+
 # 0.0.7 -- more schema updates
 
 1. Define requirements further for length of calls like ssh_post etc.

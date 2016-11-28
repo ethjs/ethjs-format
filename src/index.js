@@ -8,6 +8,17 @@ const getBinarySize = require('ethjs-util').getBinarySize;
 
 // format quantity value, either encode to hex, or decode to BigNumber
 // should intake null, stringNumber, number, BN
+
+/**
+ * Format quantity values, either encode to hex or decode to BigNumber
+ * should intake null, stringNumber, number, BN
+ *
+ * @method formatQuantity
+ * @param {String|BigNumber|Number} value quantity or tag to convert
+ * @param {Boolean} encode to hex or decode to BigNumber
+ * @returns {Object|String} output to BigNumber or string
+ * @throws error if value is a float
+ */
 function formatQuantity(value, encode) {
   var output = value;
 
@@ -40,8 +51,16 @@ function formatQuantity(value, encode) {
   return output;
 }
 
-// format quantity or tag, if tag bypass return, else format quantity
-// should intake null, stringNumber, number, BN
+/**
+ * Format quantity or tag, if tag bypass return, else format quantity
+ * should intake null, stringNumber, number, BN, string tag
+ *
+ * @method formatQuantityOrTag
+ * @param {String|BigNumber|Number} value quantity or tag to convert
+ * @param {Boolean} encode encode the number to hex or decode to BigNumber
+ * @returns {Object|String} output to BigNumber or string
+ * @throws error if value is a float
+ */
 function formatQuantityOrTag(value, encode) {
   var output = value;
 
@@ -53,7 +72,16 @@ function formatQuantityOrTag(value, encode) {
   return output;
 }
 
-// format object with caviets
+/**
+ * Format object, even with random RPC caviets
+ *
+ * @method formatObject
+ * @param {String|Array} formatter the unit to convert to, default ether
+ * @param {Object} value of the unit (in Wei)
+ * @param {Boolean} encode encode to hex or decode to BigNumber
+ * @returns {Object} output object
+ * @throws error if value is a float
+ */
 function formatObject(formatter, value, encode) {
   var output = Object.assign({}, value);
   var formatObject = null;
@@ -82,7 +110,17 @@ function formatObject(formatter, value, encode) {
   return output;
 }
 
-// format array
+/**
+ * Format array
+ *
+ * @method formatArray
+ * @param {String|Array} formatter the unit to convert to, default ether
+ * @param {Object} value of the unit (in Wei)
+ * @param {Boolean} encode encode to hex or decode to BigNumber
+ * @param {Number} lengthRequirement the required minimum array length
+ * @returns {Object} output object
+ * @throws error if minimum length isnt met
+ */
 function formatArray(formatter, value, encode, lengthRequirement) {
   var output = value.slice();
   var formatObject = formatter;
@@ -124,7 +162,15 @@ function formatArray(formatter, value, encode, lengthRequirement) {
   return output;
 }
 
-// formatData under strict conditions hex prefix
+/**
+ * FormatData under strict conditions hex prefix
+ *
+ * @method formatData
+ * @param {String} value the bytes data to be formatted
+ * @param {Number} byteLength the required byte length (usually 20 or 32)
+ * @returns {String} output output formatted data
+ * @throws error if minimum length isnt met
+ */
 function formatData(value, byteLength) {
   var output = value;
 
@@ -147,7 +193,16 @@ function formatData(value, byteLength) {
   return output;
 }
 
-// format payload encode or decode, bypass string, Boolean, DATA
+/**
+ * Format various kinds of data to RPC spec or into digestable JS objects
+ *
+ * @method format
+ * @param {String|Array} formatter the data formatter
+ * @param {String|Array|Object|Null|Number} value the data value input
+ * @param {Boolean} encode encode to hex or decode to BigNumbers, Strings, Booleans, Null
+ * @param {Number} lengthRequirement the minimum data length requirement
+ * @throws error if minimum length isnt met
+ */
 function format(formatter, value, encode, lengthRequirement) {
   var output = value;
 
@@ -176,20 +231,34 @@ function format(formatter, value, encode, lengthRequirement) {
   return output;
 }
 
-// format method inputs, assume values is array
-// return formatted array
+/**
+ * Format RPC inputs generally to the node or TestRPC
+ *
+ * @method formatInputs
+ * @param {Object} method the data formatter
+ * @param {Array} inputs the data inputs
+ * @returns {Array} output the formatted inputs array
+ * @throws error if minimum length isnt met
+ */
 function formatInputs(method, inputs) {
   return format(schema.methods[method][0], inputs, true, schema.methods[method][2]);
 }
 
-// format method inputs, assume values is array
-// return formatted array
+/**
+ * Format RPC outputs generally from the node or TestRPC
+ *
+ * @method formatOutputs
+ * @param {Object} method the data formatter
+ * @param {Array|String|Null|Boolean|Object} outputs the data inputs
+ * @returns {Array|String|Null|Boolean|Object} output the formatted data
+ */
 function formatOutputs(method, outputs) {
   return format(schema.methods[method][1], outputs, false);
 }
 
 // export formatters
 module.exports = {
+  schema,
   formatQuantity,
   formatQuantityOrTag,
   formatObject,
