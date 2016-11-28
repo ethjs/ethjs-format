@@ -2,19 +2,19 @@
 
 <div>
   <!-- Dependency Status -->
-  <a href="https://david-dm.org/SilentCicero/ethjs-format">
-    <img src="https://david-dm.org/SilentCicero/ethjs-format.svg"
+  <a href="https://david-dm.org/ethjs/ethjs-format">
+    <img src="https://david-dm.org/ethjs/ethjs-format.svg"
     alt="Dependency Status" />
   </a>
 
   <!-- devDependency Status -->
-  <a href="https://david-dm.org/SilentCicero/ethjs-format#info=devDependencies">
-    <img src="https://david-dm.org/SilentCicero/ethjs-format/dev-status.svg" alt="devDependency Status" />
+  <a href="https://david-dm.org/ethjs/ethjs-format#info=devDependencies">
+    <img src="https://david-dm.org/ethjs/ethjs-format/dev-status.svg" alt="devDependency Status" />
   </a>
 
   <!-- Build Status -->
-  <a href="https://travis-ci.org/SilentCicero/ethjs-format">
-    <img src="https://travis-ci.org/SilentCicero/ethjs-format.svg"
+  <a href="https://travis-ci.org/ethjs/ethjs-format">
+    <img src="https://travis-ci.org/ethjs/ethjs-format.svg"
     alt="Build Status" />
   </a>
 
@@ -22,6 +22,11 @@
   <a href="https://www.npmjs.org/package/ethjs-format">
     <img src="http://img.shields.io/npm/v/ethjs-format.svg"
     alt="NPM version" />
+  </a>
+
+  <!-- Test Coverage -->
+  <a href="https://coveralls.io/r/ethjs/ethjs-format">
+    <img src="https://coveralls.io/repos/github/ethjs/ethjs-format/badge.svg" alt="Test Coverage" />
   </a>
 
   <!-- Javascript Style -->
@@ -198,13 +203,13 @@ There is always a lot of work to do, and will have many rules to maintain. So pl
 
 Please consult our [Code of Conduct](CODE_OF_CONDUCT.md) docs before helping out.
 
-We communicate via [issues](https://github.com/SilentCicero/ethjs-format/issues) and [pull requests](https://github.com/SilentCicero/ethjs-format/pulls).
+We communicate via [issues](https://github.com/ethjs/ethjs-format/issues) and [pull requests](https://github.com/ethjs/ethjs-format/pulls).
 
 ## Important documents
 
 - [Changelog](CHANGELOG.md)
 - [Code of Conduct](CODE_OF_CONDUCT.md)
-- [License](https://raw.githubusercontent.com/SilentCicero/ethjs-format/master/LICENSE)
+- [License](https://raw.githubusercontent.com/ethjs/ethjs-format/master/LICENSE)
 
 ## Licence
 
