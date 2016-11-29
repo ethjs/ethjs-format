@@ -17,7 +17,7 @@ const getBinarySize = require('ethjs-util').getBinarySize;
  * @throws error if value is a float
  */
 function formatQuantity(value, encode) {
-  var output = value;
+  var output = value; // eslint-disable-line
 
   // if hex string, number string or number, encode into bignumber
   if (typeof value === 'string'
@@ -27,7 +27,7 @@ function formatQuantity(value, encode) {
     }
 
     if (String(value).match(/[A-Za-z]/i) || String(value).length === 0) {
-      var prepString = `0x${toBuffer(`0x${stripHexPrefix(value)}`).toString('hex')}`;
+      var prepString = `0x${toBuffer(`0x${stripHexPrefix(value)}`).toString('hex')}`;  // eslint-disable-line
 
       if (prepString === '0x' || prepString === '') {
         prepString = '0x0';
@@ -35,7 +35,7 @@ function formatQuantity(value, encode) {
 
       output = new BN(prepString, 16);
     } else {
-     output = new BN(value);
+      output = new BN(value);
     }
   }
 
@@ -59,7 +59,7 @@ function formatQuantity(value, encode) {
  * @throws error if value is a float
  */
 function formatQuantityOrTag(value, encode) {
-  var output = value;
+  var output = value; // eslint-disable-line
 
   // if the value is a tag, bypass
   if (schema.tags.indexOf(value) === -1) {
@@ -80,23 +80,23 @@ function formatQuantityOrTag(value, encode) {
  * @throws error if value is a float
  */
 function formatObject(formatter, value, encode) {
-  var output = Object.assign({}, value);
-  var formatObject = null;
+  var output = Object.assign({}, value); // eslint-disable-line
+  var formatObject = null; // eslint-disable-line
 
   // if the object is a string flag, then retreive the object
   if (typeof formatter === 'string') {
     if (formatter === 'Boolean|EthSyncing') {
-      formatObject = Object.assign({}, schema.objects['EthSyncing']);
+      formatObject = Object.assign({}, schema.objects.EthSyncing);
     } else if (formatter === 'DATA|Transaction') {
-      formatObject = Object.assign({}, schema.objects['Transaction']);
+      formatObject = Object.assign({}, schema.objects.Transaction);
     } else {
       formatObject = Object.assign({}, schema.objects[formatter]);
     }
   }
 
   // check if all required data keys are fulfilled
-  if (!arrayContainsArray(Object.keys(value), formatObject.__required)) {
-    throw new Error(`object ${JSON.stringify(value)} must contain properties: ${formatObject.__required.join(', ')}`);
+  if (!arrayContainsArray(Object.keys(value), formatObject.__required)) { // eslint-disable-line
+    throw new Error(`object ${JSON.stringify(value)} must contain properties: ${formatObject.__required.join(', ')}`); // eslint-disable-line
   }
 
   // assume formatObject is an object, go through keys and format each
@@ -119,8 +119,8 @@ function formatObject(formatter, value, encode) {
  * @throws error if minimum length isnt met
  */
 function formatArray(formatter, value, encode, lengthRequirement) {
-  var output = value.slice();
-  var formatObject = formatter;
+  var output = value.slice(); // eslint-disable-line
+  var formatObject = formatter; // eslint-disable-line
 
   // if the formatter is an array or data, then make format object an array data
   if (formatter === 'Array|DATA') {
@@ -137,7 +137,7 @@ function formatArray(formatter, value, encode, lengthRequirement) {
   if (encode === true
     && typeof lengthRequirement === 'number'
     && value.length < lengthRequirement) {
-    throw new Error(`array ${JSON.stringify(value)} must contain at least ${lengthRequirement} params, but only contains ${value.length}.`)
+    throw new Error(`array ${JSON.stringify(value)} must contain at least ${lengthRequirement} params, but only contains ${value.length}.`); // eslint-disable-line
   }
 
   // make new array, avoid mutation
@@ -146,7 +146,7 @@ function formatArray(formatter, value, encode, lengthRequirement) {
   // assume formatObject is an object, go through keys and format each
   value.forEach((valueKey, valueIndex) => {
     // use key zero as formatter for all values, unless otherwise specified
-    var formatObjectKey = 0;
+    var formatObjectKey = 0; // eslint-disable-line
 
     // if format array is exact, check each argument against formatter argument
     if (formatObject.length > 1) {
@@ -169,7 +169,7 @@ function formatArray(formatter, value, encode, lengthRequirement) {
  * @throws error if minimum length isnt met
  */
 function formatData(value, byteLength) {
-  var output = value;
+  var output = value; // eslint-disable-line
 
   // prefix only under strict conditions, else bypass
   if (typeof value === 'string'
@@ -201,7 +201,7 @@ function formatData(value, byteLength) {
  * @throws error if minimum length isnt met
  */
 function format(formatter, value, encode, lengthRequirement) {
-  var output = value;
+  var output = value; // eslint-disable-line
 
   // if formatter is quantity or quantity or tag
   if (formatter === 'QUANTITY') {
