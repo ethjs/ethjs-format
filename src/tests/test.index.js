@@ -37,6 +37,39 @@ describe('test ethjs-format object', () => {
       }
     });
 
+    it('test format object EthSyncing', () => {
+
+      const objEth = {
+        startingBlock: "0x57840CC2C",
+        currentBlock: "0x57840CC2C",
+        highestBlock: "0x57840CC2C",
+      };
+
+      assert.deepEqual(format.formatObject('Boolean|EthSyncing', objEth).startingBlock.toNumber(10) > 0, true);
+    });
+
+    it('test is required keys are filled, should throw', () => {
+      const encodedSendTransactionObject = {
+        'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
+        'gas': '0x76c0', // 30400,
+        'gasPrice': '0x9184e72a000', // 10000000000000
+        'value': '0x9184e72a', // 2441406250
+        'data': '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
+      };
+
+      assert.throws(() => {
+        format.formatObject('SendTransaction', encodedSendTransactionObject);
+      }, Error);
+    });
+
+    it('test format array', () => {
+      assert.deepEqual(format.formatArray('Array|DATA', ['0x']), ['0x']);
+    });
+
+    it('test format array', () => {
+      assert.deepEqual(format.formatArray('FilterChange', ['0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55']), ['0xdf829c5a142f1fccd7d8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcf55']);
+    });
+
     it('should decode normally', () => {
       const prefixHexNumber = '0x57840CC2C';
       const noPrefixHexNumber = '21D21A2';

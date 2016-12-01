@@ -74,7 +74,7 @@ function formatQuantityOrTag(value, encode) {
  *
  * @method formatObject
  * @param {String|Array} formatter the unit to convert to, default ether
- * @param {Object} value of the unit (in Wei)
+ * @param {Object} value the object value
  * @param {Boolean} encode encode to hex or decode to BigNumber
  * @returns {Object} output object
  * @throws error if value is a float
@@ -112,7 +112,7 @@ function formatObject(formatter, value, encode) {
  *
  * @method formatArray
  * @param {String|Array} formatter the unit to convert to, default ether
- * @param {Object} value of the unit (in Wei)
+ * @param {Object} value the value in question
  * @param {Boolean} encode encode to hex or decode to BigNumber
  * @param {Number} lengthRequirement the required minimum array length
  * @returns {Object} output object

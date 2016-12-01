@@ -1,3 +1,7 @@
+# 0.1.0 -- better coverage
+
+1. better coverage testing
+
 # 0.0.9 -- more schema details for adding
 
 1. Added additional data for the "latest" tag, flagged as:
