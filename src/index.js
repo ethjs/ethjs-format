@@ -170,6 +170,7 @@ function formatArray(formatter, value, encode, lengthRequirement) {
  */
 function formatData(value, byteLength) {
   var output = value; // eslint-disable-line
+  var outputByteLength = 0; // eslint-disable-line
 
   // prefix only under strict conditions, else bypass
   if (typeof value === 'string'
@@ -178,7 +179,9 @@ function formatData(value, byteLength) {
     output = `0x${value}`;
   }
 
-  const outputByteLength = getBinarySize(output);
+  if (typeof value === 'string') {
+    outputByteLength = getBinarySize(output);
+  }
 
   // throw if bytelength is not correct
   if (typeof byteLength === 'number'

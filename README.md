@@ -64,52 +64,7 @@ const outputPayload = format.formatOutputs('eth_getBalance', "0x0234c8a3397aab58
 
 A straight forward and complete RPC formatting layer for the Ethereum RPC spec.
 
-## Encoding/Decoding
-
-`ethjs-format` mainly helps in the process of handling and encoding things like quantities (i.e numbers) either before or after payload transport.
-
-### Quantities
-
-  Will encode quantities such as: `BigNumber`, `'string nums'`, `numbers` into hex. Decodes hex numbers into `BigNumber` objects. Very much like web3.js.
-
-### Data
-
-  Will very carefully prefix unprefixed data such as `{data: ''}` to `{data: '0x'}` for encoding. Otherwise does nothing to DATA typed fields in or out. 32 and 20 byte data requirements are enforced across all incoming and outgoing payloads, however `0x` empty data is allowed.
-
-### Objects
-
-  Will encode complex RPC objects like the `eth_sendTransaction` input object structure `{from: ..., data: ..., gas: ...}` for RPC payloads. For complex objects, it also enforces by `throw` required fields such as `from` and `data` for the `eth_sendTransaction` input object.
-
-  ```js
-  const format = require('ethjs-format');
-
-  const inputPayload = format.formatInputs('eth_sendTransaction', [{
-    "from": "0xb60e8dd61c5d32be8058bb8eb970870f07233155",
-    "to": "0xd46e8dd67c5d32be8058bb8eb970870f07244567",
-    "gas": new BigNumber("30400"), // 30400,
-    "gasPrice": "10000000000000", // 10000000000000
-    "value": 2441406250, // 2441406250
-    "data": "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675"
-  }]);
-
-  /* result
-
-  [{
-    from: '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
-    to: '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
-    gas: '0x76c0',
-    gasPrice: '0x9184e72a000',
-    value: '0x9184e72a',
-    data: '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
-  }]
-  */
-
-  const outputPayload = format.formatOutputs('eth_sendTransaction', "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331");
-
-  // result "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
-  ```
-
-## Methods Supported
+## Supported RPC Methods
 
 ```
 web3_clientVersion
@@ -180,14 +135,12 @@ shh_getMessages
 
 Please help better the ecosystem by submitting issues and pull requests to default. We need all the help we can get to build the absolute best linting standards and utilities. We follow the AirBNB linting standard and the unix philosophy.
 
-<!--
 ## Guides
 
-You'll find more detailed information on using default and tailoring it to your needs in our guides:
+You'll find more detailed information on using `ethjs-format` and tailoring it to your needs in our guides:
 
 - [User guide](docs/user-guide.md) - Usage, configuration, FAQ and complementary tools.
-- [Developer guide](docs/developer-guide.md) - Contributing to wafr and writing your own plugins & formatters.
--->
+- [Developer guide](docs/developer-guide.md) - Contributing to `ethjs-format` and writing your own code and coverage.
 
 ## Help out
 
