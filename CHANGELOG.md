@@ -1,3 +1,10 @@
+# 0.1.1 -- removal of BigNumber for BN
+
+1. removal of BigNumber for BN
+2. more coverage
+3. more docs
+4. package fixes, removals
+
 # 0.1.0 -- better coverage
 
 1. better coverage testing

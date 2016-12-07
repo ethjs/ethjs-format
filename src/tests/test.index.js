@@ -2,7 +2,8 @@
 
 const assert = require('chai').assert;
 const format = require('../index.js');
-const BN = require('bignumber.js');
+const BN = require('bn.js');
+const schema = require('ethjs-schema');
 
 describe('test ethjs-format object', () => {
   describe('test formatQuantity', () => {

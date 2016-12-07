@@ -1,5 +1,5 @@
-const schema = require('./schema.json');
-const BN = require('bignumber.js');
+const schema = require('ethjs-schema');
+const BN = require('bn.js');
 const toBuffer = require('ethjs-util').toBuffer;
 const stripHexPrefix = require('ethjs-util').stripHexPrefix;
 const isHexPrefixed = require('ethjs-util').isHexPrefixed;
@@ -13,7 +13,7 @@ const getBinarySize = require('ethjs-util').getBinarySize;
  * @method formatQuantity
  * @param {String|BigNumber|Number} value quantity or tag to convert
  * @param {Boolean} encode to hex or decode to BigNumber
- * @returns {Object|String} output to BigNumber or string
+ * @returns {Optional} output to BigNumber or string
  * @throws error if value is a float
  */
 function formatQuantity(value, encode) {
@@ -27,10 +27,10 @@ function formatQuantity(value, encode) {
     }
 
     if (String(value).match(/[A-Za-z]/i) || String(value).length === 0) {
-      var prepString = `0x${toBuffer(`0x${stripHexPrefix(value)}`).toString('hex')}`;  // eslint-disable-line
+      var prepString = `${toBuffer(`0x${stripHexPrefix(value)}`).toString('hex')}`;  // eslint-disable-line
 
       if (prepString === '0x' || prepString === '') {
-        prepString = '0x0';
+        prepString = '0';
       }
 
       output = new BN(prepString, 16);

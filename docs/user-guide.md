@@ -158,6 +158,16 @@ Read the full spec here:
 
 https://github.com/ethereum/wiki/wiki/JSON-RPC
 
+## Why BN.js?
+
+`ethjs` has made a policy of using `BN.js` across all of its repositories. Here are some of the reasons why:
+
+  1. lighter than alternatives (BigNumber.js)
+  2. faster than most alternatives, see [benchmarks](https://github.com/indutny/bn.js/issues/89)
+  3. used by the Ethereum foundation across all [`ethereumjs`](https://github.com/ethereumjs) repositories
+  4. is already used by a critical JS dependency of many ethereum packages, see package [`elliptic`](https://github.com/indutny/elliptic)
+  5. purposefully **does not support decimals or floats numbers** (for greater precision), remember, the Ethereum blockchain cannot and will not support float values or decimal numbers.
+
 ## Browser Builds
 
 `ethjs` provides production distributions for all of its modules that are ready for use in the browser right away. Simply include either `dist/ethjs-format.js` or `dist/ethjs-format.min.js` directly into an HTML file to start using this module. Note, an `ethFormat` object is made available globally.
