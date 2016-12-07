@@ -1,8 +1,8 @@
 const schema = require('ethjs-schema');
 const BN = require('bn.js');
+const stripHexPrefix = require('strip-hex-prefix');
+const isHexPrefixed = require('is-hex-prefixed');
 const toBuffer = require('ethjs-util').toBuffer;
-const stripHexPrefix = require('ethjs-util').stripHexPrefix;
-const isHexPrefixed = require('ethjs-util').isHexPrefixed;
 const arrayContainsArray = require('ethjs-util').arrayContainsArray;
 const getBinarySize = require('ethjs-util').getBinarySize;
 

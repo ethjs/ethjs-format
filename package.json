@@ -1,6 +1,6 @@
 {
   "name": "ethjs-format",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A payload formatter for the Ethereum RPC layer.",
   "main": "lib/index.js",
   "browser": "dist/ethjs-format.js",
@@ -121,8 +121,8 @@
   },
   "dependencies": {
     "bn.js": "4.11.6",
-    "ethjs-schema": "^0.1.0",
-    "ethjs-util": "0.1.1"
+    "ethjs-schema": "0.1.0",
+    "ethjs-util": "0.1.2"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",

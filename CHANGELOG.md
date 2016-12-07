@@ -1,3 +1,9 @@
+# 0.1.2 -- less dependencies
+
+1. Removal of utf8 dependency
+2. ethjs-util update
+3. package config update
+
 # 0.1.1 -- removal of BigNumber for BN
 
 1. removal of BigNumber for BN
