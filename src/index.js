@@ -1,8 +1,8 @@
 const schema = require('ethjs-schema');
 const BN = require('bn.js');
-const stripHexPrefix = require('strip-hex-prefix');
 const isHexPrefixed = require('is-hex-prefixed');
-const toBuffer = require('ethjs-util').toBuffer;
+const stripHexPrefix = require('strip-hex-prefix');
+const padToEven = require('ethjs-util').padToEven;
 const arrayContainsArray = require('ethjs-util').arrayContainsArray;
 const getBinarySize = require('ethjs-util').getBinarySize;
 
@@ -27,7 +27,7 @@ function formatQuantity(value, encode) {
     }
 
     if (String(value).match(/[A-Za-z]/i) || String(value).length === 0) {
-      var prepString = `${toBuffer(`0x${stripHexPrefix(value)}`).toString('hex')}`;  // eslint-disable-line
+      var prepString = `${padToEven(stripHexPrefix(value))}`; // eslint-disable-line
 
       if (prepString === '0x' || prepString === '') {
         prepString = '0';

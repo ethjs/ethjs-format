@@ -1,3 +1,9 @@
+# 0.1.3 -- less deps
+
+1. New util with less dependencies
+2. webpack config updates
+3. build config updates
+
 # 0.1.2 -- less dependencies
 
 1. Removal of utf8 dependency
