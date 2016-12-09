@@ -8367,9 +8367,9 @@ module.exports = function stripHexPrefix(str) {
 
 var schema = __webpack_require__(4);
 var BN = __webpack_require__(3);
-var stripHexPrefix = __webpack_require__(5);
 var isHexPrefixed = __webpack_require__(1);
-var toBuffer = __webpack_require__(0).toBuffer;
+var stripHexPrefix = __webpack_require__(5);
+var padToEven = __webpack_require__(0).padToEven;
 var arrayContainsArray = __webpack_require__(0).arrayContainsArray;
 var getBinarySize = __webpack_require__(0).getBinarySize;
 
@@ -8393,7 +8393,7 @@ function formatQuantity(value, encode) {
     }
 
     if (String(value).match(/[A-Za-z]/i) || String(value).length === 0) {
-      var prepString = '' + toBuffer('0x' + stripHexPrefix(value)).toString('hex'); // eslint-disable-line
+      var prepString = '' + padToEven(stripHexPrefix(value)); // eslint-disable-line
 
       if (prepString === '0x' || prepString === '') {
         prepString = '0';
