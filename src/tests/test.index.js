@@ -489,6 +489,7 @@ describe('test ethjs-format object', () => {
       const r8 = format.format('Q', emptyString, false).toString(10);
       const r9 = format.format('Q', zeroNumber, false).toString(10);
 
+      assert.throws(() => format.format('Q', '-10', false), Error);
       assert.equal(r1, '23492348972');
       assert.equal(r2, '35463586');
       assert.equal(r3, '9999999999999999');

@@ -1,3 +1,7 @@
+# 0.1.4 -- removed negative number
+
+1. Remove possibility of negative numbers on chain
+
 # 0.1.3 -- less deps
 
 1. New util with less dependencies
