@@ -12,7 +12,7 @@ describe('test ethjs-format object', () => {
       const num = 327243762;
       const stringNumber = '238428237842';
       const noPrefixHexNumber = '21D21A2';
-      const prefixHexNumber = '0x21D21A2';
+      const prefixHexNumber = '0x021d21a2';
       const nullNumber = null;
       const undefinedNumber = undefined;
       const emptyString = '';
@@ -20,16 +20,16 @@ describe('test ethjs-format object', () => {
       const justPrefix = '0x';
       const floatNumber = '238428.237842';
 
-      assert.equal(format.formatQuantity(emptyString, true), '0x0');
-      assert.equal(format.formatQuantity(zeroNumber, true), '0x0');
+      assert.equal(format.formatQuantity(emptyString, true), '0x00');
+      assert.equal(format.formatQuantity(zeroNumber, true), '0x00');
       assert.equal(format.formatQuantity(nullNumber, true), null);
       assert.equal(format.formatQuantity(undefinedNumber, true), undefinedNumber);
       assert.equal(format.formatQuantity(bignum, true), '0xB115'.toLowerCase());
       assert.equal(format.formatQuantity(num, true), '0x138157F2'.toLowerCase());
       assert.equal(format.formatQuantity(stringNumber, true), '0x37836E3012'.toLowerCase());
-      assert.equal(format.formatQuantity(noPrefixHexNumber, true), '0x21D21A2'.toLowerCase());
-      assert.equal(format.formatQuantity(prefixHexNumber, true), '0x21D21A2'.toLowerCase());
-      assert.equal(format.formatQuantity(justPrefix, true), '0x0');
+      assert.equal(format.formatQuantity(noPrefixHexNumber, true), '0x021d21a2'.toLowerCase());
+      assert.equal(format.formatQuantity(prefixHexNumber, true), '0x021d21a2'.toLowerCase());
+      assert.equal(format.formatQuantity(justPrefix, true), '0x00');
 
       try {
         format.formatQuantity(floatNumber, true);
@@ -53,7 +53,7 @@ describe('test ethjs-format object', () => {
       const encodedSendTransactionObject = {
         'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
         'gas': '0x76c0', // 30400,
-        'gasPrice': '0x9184e72a000', // 10000000000000
+        'gasPrice': '0x09184e72a000', // 10000000000000
         'value': '0x9184e72a', // 2441406250
         'data': '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       };
@@ -122,7 +122,7 @@ describe('test ethjs-format object', () => {
       const num = 327243762;
       const stringNumber = '238428237842';
       const noPrefixHexNumber = '21D21A2';
-      const prefixHexNumber = '0x21D21A2';
+      const prefixHexNumber = '0x021d21a2';
       const nullNumber = null;
       const undefinedNumber = undefined;
       const pendingTag = 'pending';
@@ -138,8 +138,8 @@ describe('test ethjs-format object', () => {
       assert.equal(format.formatQuantityOrTag(bignum, true), '0xB115'.toLowerCase());
       assert.equal(format.formatQuantityOrTag(num, true), '0x138157F2'.toLowerCase());
       assert.equal(format.formatQuantityOrTag(stringNumber, true), '0x37836E3012'.toLowerCase());
-      assert.equal(format.formatQuantityOrTag(noPrefixHexNumber, true), '0x21D21A2'.toLowerCase());
-      assert.equal(format.formatQuantityOrTag(prefixHexNumber, true), '0x21D21A2'.toLowerCase());
+      assert.equal(format.formatQuantityOrTag(noPrefixHexNumber, true), '0x021d21a2'.toLowerCase());
+      assert.equal(format.formatQuantityOrTag(prefixHexNumber, true), '0x021d21a2'.toLowerCase());
     });
 
     it('should decode normally', () => {
@@ -231,7 +231,7 @@ describe('test ethjs-format object', () => {
         blockNumber: '0x15df', // 5599
         transactionIndex: '0x1', // 1
         from: '0x407d73d8a49eeb85d32cf465507dd71d507100c1',
-        to: '0x85h43d8a49eeb85d32cf465507dd71d507100c12',
+        to: '0x85e43d8a49eeb85d32cf465507dd71d507100c12',
         value: '0x7f110', // 520464
         gas: '0x7f110', // 520464
         gasPrice: '0x09184e72a000',
@@ -249,7 +249,7 @@ describe('test ethjs-format object', () => {
       assert.equal(decodedObject.value.toString(10), '520464');
       assert.equal(decodedObject.gas.toString(10), '520464');
       assert.equal(decodedObject.from, '0x407d73d8a49eeb85d32cf465507dd71d507100c1');
-      assert.equal(decodedObject.to, '0x85h43d8a49eeb85d32cf465507dd71d507100c12');
+      assert.equal(decodedObject.to, '0x85e43d8a49eeb85d32cf465507dd71d507100c12');
       assert.equal(decodedObject.input, '0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360');
     });
 
@@ -261,7 +261,7 @@ describe('test ethjs-format object', () => {
         'blockNumber': '0x15df', // 5599
         'transactionIndex':  '0x1', // 1
         'from':'0x407d73d8a49eeb85d32cf465507dd71d507100c1',
-        'to':'0x85h43d8a49eeb85d32cf465507dd71d507100c12',
+        'to':'0x85e43d8a49eeb85d32cf465507dd71d507100c12',
         'value':'0x7f110', // 520464
         'gas': '0x7f110', // 520464
         'gasPrice':'0x09184e72a000',
@@ -323,7 +323,7 @@ describe('test ethjs-format object', () => {
       assert.equal(decodedObject.transactions[1].value.toString(10), '520464');
       assert.equal(decodedObject.transactions[1].gas.toString(10), '520464');
       assert.equal(decodedObject.transactions[1].from, '0x407d73d8a49eeb85d32cf465507dd71d507100c1');
-      assert.equal(decodedObject.transactions[1].to, '0x85h43d8a49eeb85d32cf465507dd71d507100c12');
+      assert.equal(decodedObject.transactions[1].to, '0x85e43d8a49eeb85d32cf465507dd71d507100c12');
       assert.equal(decodedObject.transactions[1].input, '0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360');
     });
 
@@ -337,7 +337,7 @@ describe('test ethjs-format object', () => {
 
       const encodedObject = format.formatObject('Filter', decodedFilterObject, true);
 
-      assert.equal(encodedObject.fromBlock, '0x55B903B'.toLowerCase());
+      assert.equal(encodedObject.fromBlock, '0x055B903B'.toLowerCase());
       assert.equal(encodedObject.toBlock, 'latest');
       assert.equal(Array.isArray(encodedObject.topics), true);
     });
@@ -347,7 +347,7 @@ describe('test ethjs-format object', () => {
         'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
         'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
         'gas': '0x76c0', // 30400,
-        'gasPrice': '0x9184e72a000', // 10000000000000
+        'gasPrice': '0x09184e72a000', // 10000000000000
         'value': '0x9184e72a', // 2441406250
         'data': '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       };
@@ -380,7 +380,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_1.data, '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675');
 
       assert.equal(encodedObject_1.gas, '0x76c0');
-      assert.equal(encodedObject_1.gasPrice, '0x9184e72a000');
+      assert.equal(encodedObject_1.gasPrice, '0x09184e72a000');
       assert.equal(encodedObject_1.value, '0x9184e72a');
 
       const decodedSendTransactionObject_2 = {
@@ -398,7 +398,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_2.data, '0x');
 
       assert.equal(encodedObject_2.gas, '0x76c0');
-      assert.equal(encodedObject_2.gasPrice, '0x9184e72a000');
+      assert.equal(encodedObject_2.gasPrice, '0x09184e72a000');
 
       const decodedSendTransactionObject_3 = {
         'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
@@ -413,7 +413,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_3.data, '0x');
 
       assert.equal(encodedObject_3.gas, '0x76c0');
-      assert.equal(encodedObject_3.gasPrice, '0x9184e72a000');
+      assert.equal(encodedObject_3.gasPrice, '0x09184e72a000');
 
       const decodedSendTransactionObject_4 = {
         'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
@@ -428,7 +428,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_4.data, '0x');
 
       assert.equal(encodedObject_4.gas, '0x14CCFF1D'.toLowerCase());
-      assert.equal(encodedObject_4.gasPrice, '0x9184e72a000');
+      assert.equal(encodedObject_4.gasPrice, '0x09184e72a000');
 
       const decodedSendTransactionObject_5 = {
         'from': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
@@ -442,7 +442,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_5.from, '0xd46e8dd67c5d32be8058bb8eb970870f07244567');
       assert.equal(encodedObject_4.data, '0x');
 
-      assert.equal(encodedObject_5.gas, '0x9184e72a000');
+      assert.equal(encodedObject_5.gas, '0x09184e72a000');
       assert.equal(encodedObject_5.gasPrice, '0x14CCFF1D'.toLowerCase());
     });
 
@@ -454,17 +454,17 @@ describe('test ethjs-format object', () => {
       const num = 327243762;
       const stringNumber = '238428237842';
       const noPrefixHexNumber = '21D21A2';
-      const prefixHexNumber = '0x21D21A2';
+      const prefixHexNumber = '0x021d21a2';
       const nullNumber = null;
       const undefinedNumber = undefined;
 
-      assert.equal(format.format('QUANTITY', nullNumber, true), null);
-      assert.equal(format.format('QUANTITY', undefinedNumber, true), undefinedNumber);
-      assert.equal(format.format('QUANTITY', bignum, true), '0xB115'.toLowerCase());
-      assert.equal(format.format('QUANTITY', num, true), '0x138157F2'.toLowerCase());
-      assert.equal(format.format('QUANTITY', stringNumber, true), '0x37836E3012'.toLowerCase());
-      assert.equal(format.format('QUANTITY', noPrefixHexNumber, true), '0x21D21A2'.toLowerCase());
-      assert.equal(format.format('QUANTITY', prefixHexNumber, true), '0x21D21A2'.toLowerCase());
+      assert.equal(format.format('Q', nullNumber, true), null);
+      assert.equal(format.format('Q', undefinedNumber, true), undefinedNumber);
+      assert.equal(format.format('Q', bignum, true), '0xB115'.toLowerCase());
+      assert.equal(format.format('Q', num, true), '0x138157F2'.toLowerCase());
+      assert.equal(format.format('Q', stringNumber, true), '0x37836E3012'.toLowerCase());
+      assert.equal(format.format('Q', noPrefixHexNumber, true), '0x021d21a2'.toLowerCase());
+      assert.equal(format.format('Q', prefixHexNumber, true), '0x021d21a2'.toLowerCase());
     });
 
     it('should decode QUANTITY normally', () => {
@@ -479,15 +479,15 @@ describe('test ethjs-format object', () => {
       const emptyString = '';
       const zeroNumber = 0;
 
-      const r1 = format.format('QUANTITY', prefixHexNumber, false).toString(10);
-      const r2 = format.format('QUANTITY', noPrefixHexNumber, false).toString(10);
-      const r3 = format.format('QUANTITY', largeHexNumber, false).toString(10);
-      const r4 = format.format('QUANTITY', bignum, false).toString(10);
-      const r5 = format.format('QUANTITY', num, false).toString(10);
-      const r6 = format.format('QUANTITY', stringNumber, false).toString(10);
-      const r7 = format.format('QUANTITY', nullNumber, false);
-      const r8 = format.format('QUANTITY', emptyString, false).toString(10);
-      const r9 = format.format('QUANTITY', zeroNumber, false).toString(10);
+      const r1 = format.format('Q', prefixHexNumber, false).toString(10);
+      const r2 = format.format('Q', noPrefixHexNumber, false).toString(10);
+      const r3 = format.format('Q', largeHexNumber, false).toString(10);
+      const r4 = format.format('Q', bignum, false).toString(10);
+      const r5 = format.format('Q', num, false).toString(10);
+      const r6 = format.format('Q', stringNumber, false).toString(10);
+      const r7 = format.format('Q', nullNumber, false);
+      const r8 = format.format('Q', emptyString, false).toString(10);
+      const r9 = format.format('Q', zeroNumber, false).toString(10);
 
       assert.equal(r1, '23492348972');
       assert.equal(r2, '35463586');
@@ -506,24 +506,24 @@ describe('test ethjs-format object', () => {
       const num = 327243762;
       const stringNumber = '238428237842';
       const noPrefixHexNumber = '21D21A2';
-      const prefixHexNumber = '0x21D21A2';
+      const prefixHexNumber = '0x021d21a2';
       const nullNumber = null;
       const undefinedNumber = undefined;
       const pendingTag = 'pending';
       const latestTag = 'pending';
       const earliestTag = 'earliest';
 
-      assert.equal(format.format('QUANTITY|TAG', pendingTag, true), pendingTag);
-      assert.equal(format.format('QUANTITY|TAG', latestTag, true), latestTag);
-      assert.equal(format.format('QUANTITY|TAG', earliestTag, true), earliestTag);
+      assert.equal(format.format('Q|T', pendingTag, true), pendingTag);
+      assert.equal(format.format('Q|T', latestTag, true), latestTag);
+      assert.equal(format.format('Q|T', earliestTag, true), earliestTag);
 
-      assert.equal(format.format('QUANTITY|TAG', nullNumber, true), null);
-      assert.equal(format.format('QUANTITY|TAG', undefinedNumber, true), undefinedNumber);
-      assert.equal(format.format('QUANTITY|TAG', bignum, true), '0xB115'.toLowerCase());
-      assert.equal(format.format('QUANTITY|TAG', num, true), '0x138157F2'.toLowerCase());
-      assert.equal(format.format('QUANTITY|TAG', stringNumber, true), '0x37836E3012'.toLowerCase());
-      assert.equal(format.format('QUANTITY|TAG', noPrefixHexNumber, true), '0x21D21A2'.toLowerCase());
-      assert.equal(format.format('QUANTITY|TAG', prefixHexNumber, true), '0x21D21A2'.toLowerCase());
+      assert.equal(format.format('Q|T', nullNumber, true), null);
+      assert.equal(format.format('Q|T', undefinedNumber, true), undefinedNumber);
+      assert.equal(format.format('Q|T', bignum, true), '0xB115'.toLowerCase());
+      assert.equal(format.format('Q|T', num, true), '0x138157F2'.toLowerCase());
+      assert.equal(format.format('Q|T', stringNumber, true), '0x37836E3012'.toLowerCase());
+      assert.equal(format.format('Q|T', noPrefixHexNumber, true), '0x021d21a2'.toLowerCase());
+      assert.equal(format.format('Q|T', prefixHexNumber, true), '0x021d21a2'.toLowerCase());
     });
 
     it('should decode QUANTITY|TAG normally', () => {
@@ -539,17 +539,17 @@ describe('test ethjs-format object', () => {
       const latestTag = 'pending';
       const earliestTag = 'earliest';
 
-      assert.equal(format.format('QUANTITY|TAG', pendingTag, false), pendingTag);
-      assert.equal(format.format('QUANTITY|TAG', latestTag, false), latestTag);
-      assert.equal(format.format('QUANTITY|TAG', earliestTag, false), earliestTag);
+      assert.equal(format.format('Q|T', pendingTag, false), pendingTag);
+      assert.equal(format.format('Q|T', latestTag, false), latestTag);
+      assert.equal(format.format('Q|T', earliestTag, false), earliestTag);
 
-      const r1 = format.format('QUANTITY|TAG', prefixHexNumber, false).toString(10);
-      const r2 = format.format('QUANTITY|TAG', noPrefixHexNumber, false).toString(10);
-      const r3 = format.format('QUANTITY|TAG', largeHexNumber, false).toString(10);
-      const r4 = format.format('QUANTITY|TAG', bignum, false).toString(10);
-      const r5 = format.format('QUANTITY|TAG', num, false).toString(10);
-      const r6 = format.format('QUANTITY|TAG', stringNumber, false).toString(10);
-      const r7 = format.format('QUANTITY|TAG', nullNumber, false);
+      const r1 = format.format('Q|T', prefixHexNumber, false).toString(10);
+      const r2 = format.format('Q|T', noPrefixHexNumber, false).toString(10);
+      const r3 = format.format('Q|T', largeHexNumber, false).toString(10);
+      const r4 = format.format('Q|T', bignum, false).toString(10);
+      const r5 = format.format('Q|T', num, false).toString(10);
+      const r6 = format.format('Q|T', stringNumber, false).toString(10);
+      const r7 = format.format('Q|T', nullNumber, false);
 
       assert.equal(r1, '23492348972');
       assert.equal(r2, '35463586');
@@ -558,7 +558,7 @@ describe('test ethjs-format object', () => {
       assert.equal(r5, '327243762');
       assert.equal(r6, '238428237842');
       assert.equal(r7, null);
-      assert.equal(format.format('QUANTITY|TAG', undefinedNumber, false), undefinedNumber);
+      assert.equal(format.format('Q|T', undefinedNumber, false), undefinedNumber);
     });
 
     it('should decode object SendTransaction object normally', () => {
@@ -566,7 +566,7 @@ describe('test ethjs-format object', () => {
         'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
         'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
         'gas': '', // 30400,
-        'gasPrice': '0x9184e72a000', // 10000000000000
+        'gasPrice': '0x09184e72a000', // 10000000000000
         'value': '0x9184e72a', // 2441406250
         'data': ''
       };
@@ -599,21 +599,21 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_1.data, '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675');
 
       assert.equal(encodedObject_1.gas, '0x76c0');
-      assert.equal(encodedObject_1.gasPrice, '0x9184e72a000');
+      assert.equal(encodedObject_1.gasPrice, '0x09184e72a000');
       assert.equal(encodedObject_1.value, '0x9184e72a');
     });
 
     it ('should encode null normally', () => {
       const encodeNull1 = format.format('SendTransaction', null, true);
       const encodeNull2 = format.format('Filter', null, true);
-      const encodeNull3 = format.format('DATA', null, true);
-      const encodeNull4 = format.format('Boolean', null, true);
-      const encodeNull5 = format.format('String', null, true);
-      const encodeNull6 = format.format('QUANTITY', null, true);
-      const encodeNull7 = format.format('QUANTITY|TAG', null, true);
+      const encodeNull3 = format.format('D', null, true);
+      const encodeNull4 = format.format('B', null, true);
+      const encodeNull5 = format.format('S', null, true);
+      const encodeNull6 = format.format('Q', null, true);
+      const encodeNull7 = format.format('Q|T', null, true);
       const encodeNull8 = format.format('Block', null, true);
       const encodeNull9 = format.format('Array|DATA', null, true);
-      const encodeNull10 = format.format(['DATA'], null, true);
+      const encodeNull10 = format.format(['D'], null, true);
 
       assert.equal(encodeNull1, null);
       assert.equal(encodeNull2, null);
@@ -628,24 +628,24 @@ describe('test ethjs-format object', () => {
     });
 
     it ('should handle 20 and 32 byte data properly', () => {
-      assert.equal(format.format('DATA32', '0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5', false), '0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5');
-      assert.equal(format.format('DATA32', '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32', true), '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32');
-      assert.equal(format.format('DATA20', '0x407d73d8a49eeb85d32cf465507dd71d507100c1', true), '0x407d73d8a49eeb85d32cf465507dd71d507100c1');
-      assert.equal(format.format('DATA20', '0x85h43d8a49eeb85d32cf465507dd71d507100c12', false), '0x85h43d8a49eeb85d32cf465507dd71d507100c12');
-      assert.equal(format.format('DATA20', '0x', false), '0x');
+      assert.equal(format.format('D32', '0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5', false), '0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5');
+      assert.equal(format.format('D32', '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32', true), '0x8216c5785ac562ff41e2dcfdf5785ac562ff41e2dcfdf829c5a142f1fccd7d32');
+      assert.equal(format.format('D20', '0x407d73d8a49eeb85d32cf465507dd71d507100c1', true), '0x407d73d8a49eeb85d32cf465507dd71d507100c1');
+      assert.equal(format.format('D20', '0x85e43d8a49eeb85d32cf465507dd71d507100c12', false), '0x85e43d8a49eeb85d32cf465507dd71d507100c12');
+      assert.equal(format.format('D20', '0x', false), '0x');
       var invalidBytesError;
 
       try {
-        format.format('DATA20', '*((*(dsfjj)))', false);
+        format.format('D20', '*((*(dsfjj)))', false);
       } catch (errNonAlpha) {
         assert.equal(typeof errNonAlpha, 'object');
       }
 
       try {
-        format.format('DATA32', '0x0', true);
-        format.format('DATA32', '0x89iusdf', false);
-        format.format('DATA20', '0x038372', true);
-        format.format('DATA20', '0x038372', false);
+        format.format('D32', '0x0', true);
+        format.format('D32', '0x89iusdf', false);
+        format.format('D20', '0x038372', true);
+        format.format('D20', '0x038372', false);
       } catch (error) {
         invalidBytesError = error;
       }
@@ -656,14 +656,14 @@ describe('test ethjs-format object', () => {
     it ('should decode null normally', () => {
       const decodedNull1 = format.format('SendTransaction', null, false);
       const decodedNull2 = format.format('Filter', null, false);
-      const decodedNull3 = format.format('DATA', null, false);
-      const decodedNull4 = format.format('Boolean', null, false);
-      const decodedNull5 = format.format('String', null, false);
-      const decodedNull6 = format.format('QUANTITY', null, false);
-      const decodedNull7 = format.format('QUANTITY|TAG', null, false);
+      const decodedNull3 = format.format('D', null, false);
+      const decodedNull4 = format.format('B', null, false);
+      const decodedNull5 = format.format('S', null, false);
+      const decodedNull6 = format.format('Q', null, false);
+      const decodedNull7 = format.format('Q|T', null, false);
       const decodedNull8 = format.format('Block', null, false);
       const decodedNull9 = format.format('Array|DATA', null, false);
-      const decodedNull10 = format.format(['DATA'], null, false);
+      const decodedNull10 = format.format(['D'], null, false);
 
       assert.equal(decodedNull1, null);
       assert.equal(decodedNull2, null);
@@ -678,12 +678,12 @@ describe('test ethjs-format object', () => {
     });
 
     it ('should handle arrays normally normally', () => {
-      assert.equal(format.format(['DATA'], [''], false)[0], ['0x'][0]);
-      assert.equal(format.format(['DATA'], [''], true)[0], ['0x'][0]);
-      assert.equal(format.format(['DATA'], ['0x'], false)[0], ['0x'][0]);
-      assert.equal(format.format(['DATA'], ['0x'], true)[0], ['0x'][0]);
-      assert.equal(format.format(['Boolean'], [true], false)[0], [true][0]);
-      assert.equal(format.format(['Boolean'], [false], true)[0], [false][0]);
+      assert.equal(format.format(['D'], [''], false)[0], ['0x'][0]);
+      assert.equal(format.format(['D'], [''], true)[0], ['0x'][0]);
+      assert.equal(format.format(['D'], ['0x'], false)[0], ['0x'][0]);
+      assert.equal(format.format(['D'], ['0x'], true)[0], ['0x'][0]);
+      assert.equal(format.format(['B'], [true], false)[0], [true][0]);
+      assert.equal(format.format(['B'], [false], true)[0], [false][0]);
       assert.equal(format.format('Array|DATA', '0x', true), '0x');
       assert.equal(format.format('Array|DATA', '0x', false), '0x');
     });
@@ -716,7 +716,7 @@ describe('test ethjs-format object', () => {
         from: '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
         to: '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
         gas: '0x76c0',
-        gasPrice: '0x9184e72a000',
+        gasPrice: '0x09184e72a000',
         value: '0x9184e72a',
         data: '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       }];
@@ -854,10 +854,10 @@ describe('test ethjs-format object', () => {
 
 'Array|DATA'
 
-'QUANTITY'
-'QUANTITY|TAG'
+'Q'
+'Q|T'
 
-'Boolean'
-'String'
-'DATA'
+'B'
+'S'
+'D'
 */

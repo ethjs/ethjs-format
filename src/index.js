@@ -1,10 +1,10 @@
 const schema = require('ethjs-schema');
-const BN = require('bn.js');
-const isHexPrefixed = require('is-hex-prefixed');
+const util = require('ethjs-util');
+const numberToBN = require('number-to-bn');
 const stripHexPrefix = require('strip-hex-prefix');
-const padToEven = require('ethjs-util').padToEven;
-const arrayContainsArray = require('ethjs-util').arrayContainsArray;
-const getBinarySize = require('ethjs-util').getBinarySize;
+const padToEven = util.padToEven;
+const arrayContainsArray = util.arrayContainsArray;
+const getBinarySize = util.getBinarySize;
 
 /**
  * Format quantity values, either encode to hex or decode to BigNumber
@@ -17,35 +17,11 @@ const getBinarySize = require('ethjs-util').getBinarySize;
  * @throws error if value is a float
  */
 function formatQuantity(value, encode) {
-  var output = value; // eslint-disable-line
-
-  // if hex string, number string or number, encode into bignumber
-  if (typeof value === 'string'
-   || typeof value === 'number') {
-    if (String(value).indexOf('.') !== -1) {
-      throw new Error(`quantity value '${value}' cannot be float`);
-    }
-
-    if (String(value).match(/[A-Za-z]/i) || String(value).length === 0) {
-      var prepString = `${padToEven(stripHexPrefix(value))}`; // eslint-disable-line
-
-      if (prepString === '0x' || prepString === '') {
-        prepString = '0';
-      }
-
-      output = new BN(prepString, 16);
-    } else {
-      output = new BN(value);
-    }
+  if (['string', 'number', 'object'].indexOf(typeof value) === -1 || value === null) {
+    return value;
   }
 
-  // encode to BigNumber to hex
-  if (typeof output === 'object'
-   && value !== null && encode) {
-    output = `0x${output.toString(16).toLowerCase()}`;
-  }
-
-  return output;
+  return encode ? `0x${padToEven(numberToBN(value).toString(16))}` : numberToBN(value);
 }
 
 /**
@@ -64,6 +40,34 @@ function formatQuantityOrTag(value, encode) {
   // if the value is a tag, bypass
   if (schema.tags.indexOf(value) === -1) {
     output = formatQuantity(value, encode);
+  }
+
+  return output;
+}
+
+/**
+ * FormatData under strict conditions hex prefix
+ *
+ * @method formatData
+ * @param {String} value the bytes data to be formatted
+ * @param {Number} byteLength the required byte length (usually 20 or 32)
+ * @returns {String} output output formatted data
+ * @throws error if minimum length isnt met
+ */
+function formatData(value, byteLength) {
+  var output = value; // eslint-disable-line
+  var outputByteLength = 0; // eslint-disable-line
+
+  // prefix only under strict conditions, else bypass
+  if (typeof value === 'string') {
+    output = `0x${padToEven(stripHexPrefix(value))}`;
+    outputByteLength = getBinarySize(output);
+  }
+
+  // throw if bytelength is not correct
+  if (typeof byteLength === 'number' && value !== null && output !== '0x' // support empty values
+    && (!/^[0-9A-Fa-f]+$/.test(stripHexPrefix(output)) || outputByteLength !== 2 + byteLength * 2)) {
+    throw new Error(`[ethjs-format] hex string '${output}' must be an alphanumeric ${2 + byteLength * 2} utf8 byte hex (chars: a-fA-F) string, is ${outputByteLength} bytes`);
   }
 
   return output;
@@ -96,7 +100,7 @@ function formatObject(formatter, value, encode) {
 
   // check if all required data keys are fulfilled
   if (!arrayContainsArray(Object.keys(value), formatObject.__required)) { // eslint-disable-line
-    throw new Error(`object ${JSON.stringify(value)} must contain properties: ${formatObject.__required.join(', ')}`); // eslint-disable-line
+    throw new Error(`[ethjs-format] object ${JSON.stringify(value)} must contain properties: ${formatObject.__required.join(', ')}`); // eslint-disable-line
   }
 
   // assume formatObject is an object, go through keys and format each
@@ -124,13 +128,13 @@ function formatArray(formatter, value, encode, lengthRequirement) {
 
   // if the formatter is an array or data, then make format object an array data
   if (formatter === 'Array|DATA') {
-    formatObject = ['DATA'];
+    formatObject = ['D'];
   }
 
   // if formatter is a FilterChange and acts like a BlockFilter
   // or PendingTx change format object to tx hash array
   if (formatter === 'FilterChange' && typeof value[0] === 'string') {
-    formatObject = ['DATA32'];
+    formatObject = ['D32'];
   }
 
   // enforce minimum value length requirements
@@ -160,40 +164,6 @@ function formatArray(formatter, value, encode, lengthRequirement) {
 }
 
 /**
- * FormatData under strict conditions hex prefix
- *
- * @method formatData
- * @param {String} value the bytes data to be formatted
- * @param {Number} byteLength the required byte length (usually 20 or 32)
- * @returns {String} output output formatted data
- * @throws error if minimum length isnt met
- */
-function formatData(value, byteLength) {
-  var output = value; // eslint-disable-line
-  var outputByteLength = 0; // eslint-disable-line
-
-  // prefix only under strict conditions, else bypass
-  if (typeof value === 'string'
-    && value !== null
-    && isHexPrefixed(value) === false) {
-    output = `0x${value}`;
-  }
-
-  if (typeof value === 'string') {
-    outputByteLength = getBinarySize(output);
-  }
-
-  // throw if bytelength is not correct
-  if (typeof byteLength === 'number'
-    && value !== null && output !== '0x' // support empty values
-    && (!/^[A-Za-z0-9]+$/.test(output) || outputByteLength !== 2 + byteLength * 2)) {
-    throw new Error(`hex string '${output}' must be an alphanumeric ${2 + byteLength * 2} utf8 byte string, is ${outputByteLength} bytes`);
-  }
-
-  return output;
-}
-
-/**
  * Format various kinds of data to RPC spec or into digestable JS objects
  *
  * @method format
@@ -207,15 +177,15 @@ function format(formatter, value, encode, lengthRequirement) {
   var output = value; // eslint-disable-line
 
   // if formatter is quantity or quantity or tag
-  if (formatter === 'QUANTITY') {
+  if (formatter === 'Q') {
     output = formatQuantity(value, encode);
-  } else if (formatter === 'QUANTITY|TAG') {
+  } else if (formatter === 'Q|T') {
     output = formatQuantityOrTag(value, encode);
-  } else if (formatter === 'DATA') {
+  } else if (formatter === 'D') {
     output = formatData(value); // dont format data flagged objects like compiler output
-  } else if (formatter === 'DATA20') {
+  } else if (formatter === 'D20') {
     output = formatData(value, 20); // dont format data flagged objects like compiler output
-  } else if (formatter === 'DATA32') {
+  } else if (formatter === 'D32') {
     output = formatData(value, 32); // dont format data flagged objects like compiler output
   } else {
     // if value is an object or array

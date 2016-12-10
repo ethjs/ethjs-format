@@ -186,23 +186,25 @@ https://polyfill.io/
 
 ## Latest Webpack Figures
 
-Hash: 850e10b1dcfa20d7be4a                                                           
+```
+Hash: bff3839e979e26b98b3e                                                           
 Version: webpack 2.1.0-beta.15
-Time: 1237ms
+Time: 842ms
               Asset    Size  Chunks             Chunk Names
-    ethjs-format.js  229 kB       0  [emitted]  main
-ethjs-format.js.map  286 kB       0  [emitted]  main
-    + 12 hidden modules
+    ethjs-format.js  170 kB       0  [emitted]  main
+ethjs-format.js.map  213 kB       0  [emitted]  main
+    + 13 hidden modules
 
-> ethjs-format@0.1.2 build:umd:min /home/nick/github/ethjs-format
+> ethjs-format@0.1.3 build:umd:min /home/nick/github/ethjs-format
 > cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --config ./internals/webpack/webpack.config.js ./lib/index.js --progress
 
-Hash: 3cc8274d1b1b2a04fb9f                                                           
+Hash: 6530438ecf2a47b0ed05                                                           
 Version: webpack 2.1.0-beta.15
-Time: 4452ms
+Time: 2755ms
               Asset     Size  Chunks             Chunk Names
-ethjs-format.min.js  99.4 kB       0  [emitted]  main
-    + 12 hidden modules
+ethjs-format.min.js  75.4 kB       0  [emitted]  main
+    + 13 hidden modules
+```
 
 ## Other Awesome Modules, Tools and Frameworks
 
