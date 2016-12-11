@@ -1,3 +1,10 @@
+# 0.1.5 -- fixed block formatting
+
+1. Spec down enforcement (not value up)
+2. Tighter spec enforement
+3. More tests on Block data structure
+4. Schema update
+
 # 0.1.4 -- removed negative number
 
 1. Remove possibility of negative numbers on chain

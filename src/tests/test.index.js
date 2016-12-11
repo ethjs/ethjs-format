@@ -445,7 +445,24 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_5.gas, '0x09184e72a000');
       assert.equal(encodedObject_5.gasPrice, '0x14CCFF1D'.toLowerCase());
     });
+  });
 
+  describe('test decode of getBlockByNumber', () => {
+    const payload = JSON.parse('{"author":"0x61c808d82a3ac53231750dadc13c777b59310bd9","difficulty":"0x4cc38f1df101","extraData":"0xe4b883e5bda9e7a59ee4bb99e9b1bc","gasLimit":"0x3d1e65","gasUsed":"0xb238","hash":"0x5d336fc52ebd4c32dec4fd1a82058521f8d43f76e0c47a6540577253fcc5eba4","logsBloom":"0x00000000000000020000000000020000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000202000000000000000000000000000001000000000040000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000001000000000000000000000000000000000","miner":"0x61c808d82a3ac53231750dadc13c777b59310bd9","mixHash":"0xf3bd964ff1ba978efad5538e855b6d76a5e60fd55d556893abf5dcecd5cd339b","nonce":"0x128d840a2e9b7ba2","number":"0x2a91ec","parentHash":"0x31ba04f14e28e0ae36ccb69d440adcf67bead1648e43341186fc86324f76db3a","receiptsRoot":"0xa09bf3f2b0f9d7fb8dc03c6d40d24903c336ce1d06803acc75337a4518e1ba23","sealFields":["0xf3bd964ff1ba978efad5538e855b6d76a5e60fd55d556893abf5dcecd5cd339b","0x128d840a2e9b7ba2"],"sha3Uncles":"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347","size":"0x2c3","stateRoot":"0xeac15b6137f875f45dade12633005003898c73c6f8b52c024a70a5746c7c093b","timestamp":"0x584d8cfd","totalDifficulty":"0x582c5ac155a130807","transactions":["0xc2c139851af8c356039c717be5741604bc01231968c09db284a6d809a74c67de"],"transactionsRoot":"0x4ef878dcdafa2569903739be44e10ed89548114ad0c8078b6b7619ca4dca12c7","uncles":[]}');
+
+    const formattedData = format.formatOutputs('eth_getBlockByHash', payload);
+
+    assert.equal(typeof formattedData.receiptsRoot, 'string');
+    assert.equal(formattedData.miner, '0x61c808d82a3ac53231750dadc13c777b59310bd9');
+    assert.equal(formattedData.author, '0x61c808d82a3ac53231750dadc13c777b59310bd9');
+    assert.equal(formattedData.extraData, '0xe4b883e5bda9e7a59ee4bb99e9b1bc');
+    assert.equal(typeof formattedData.number, 'object');
+    assert.equal(typeof formattedData.nonce, 'string');
+    assert.equal(typeof formattedData.gasLimit, 'object');
+    assert.equal(typeof formattedData.size, 'object');
+    assert.equal(typeof formattedData.timestamp, 'object');
+    assert.equal(Array.isArray(formattedData.uncles), true);
+    assert.equal(formattedData.transactionsRoot, '0x4ef878dcdafa2569903739be44e10ed89548114ad0c8078b6b7619ca4dca12c7');
   });
 
   describe('test format', () => {

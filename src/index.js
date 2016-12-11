@@ -108,8 +108,10 @@ function formatObject(formatter, value, encode) {
   }
 
   // assume formatObject is an object, go through keys and format each
-  Object.keys(value).forEach((valueKey) => {
-    output[valueKey] = format(formatObject[valueKey], value[valueKey], encode);
+  Object.keys(formatObject).forEach((valueKey) => {
+    if (valueKey !== '__required' && typeof value[valueKey] !== 'undefined') {
+      output[valueKey] = format(formatObject[valueKey], value[valueKey], encode);
+    }
   });
 
   return output;
