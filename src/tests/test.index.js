@@ -17,7 +17,7 @@ describe('test ethjs-format object', () => {
       const undefinedNumber = undefined;
       const emptyString = '';
       const zeroNumber = 0;
-      const justPrefix = '0x';
+      const justPrefix = '0';
       const floatNumber = '238428.237842';
 
       assert.equal(format.formatQuantity(emptyString, true), '0x00');
@@ -30,6 +30,7 @@ describe('test ethjs-format object', () => {
       assert.equal(format.formatQuantity(noPrefixHexNumber, true), '0x021d21a2'.toLowerCase());
       assert.equal(format.formatQuantity(prefixHexNumber, true), '0x021d21a2'.toLowerCase());
       assert.equal(format.formatQuantity(justPrefix, true), '0x00');
+      assert.equal(format.formatQuantity('0x10', true), '0x10');
 
       try {
         format.formatQuantity(floatNumber, true);
@@ -82,7 +83,7 @@ describe('test ethjs-format object', () => {
       const undefinedNumber = undefined;
       const emptyString = '';
       const zeroNumber = 0;
-      const justPrefix = '0x';
+      const justPrefix = '0';
       const floatNumber = '238428.237842';
 
       const r1 = format.formatQuantity(prefixHexNumber, false).toString(10);

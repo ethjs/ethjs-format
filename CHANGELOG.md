@@ -1,4 +1,4 @@
-# 0.1.6 -- hex prefix
+# 0.1.7 -- hex prefix
 
 1. Updates number-to-bn
 
