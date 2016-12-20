@@ -1,3 +1,7 @@
+# 0.1.6 -- hex prefix
+
+1. Updates number-to-bn
+
 # 0.1.5 -- fixed block formatting
 
 1. Spec down enforcement (not value up)
