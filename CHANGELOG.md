@@ -1,3 +1,12 @@
+# 0.2.0 -- no longer padds quantity values
+
+1. Not sure why we ever did, maybe just logical assumptions...
+
+  - Quantity "0" => "0x0"
+             "1" => "0x1" etc.. no padding of hex quantity values in the format layer.
+
+# 0.1.8 -- added personal sign and recover
+
 # 0.1.7 -- hex prefix
 
 1. Updates number-to-bn

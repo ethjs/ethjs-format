@@ -25,7 +25,7 @@ function formatQuantity(value, encode) {
 
   if (numberToBN(value).isNeg()) { throw new Error(`[ethjs-format] while formatting quantity '${numberValue.toString(10)}', invalid negative number. Number must be positive or zero.`); }
 
-  return encode ? `0x${padToEven(numberValue.toString(16))}` : numberValue;
+  return encode ? `0x${numberValue.toString(16)}` : numberValue;
 }
 
 /**

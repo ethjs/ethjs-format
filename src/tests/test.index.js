@@ -12,7 +12,7 @@ describe('test ethjs-format object', () => {
       const num = 327243762;
       const stringNumber = '238428237842';
       const noPrefixHexNumber = '21D21A2';
-      const prefixHexNumber = '0x021d21a2';
+      const prefixHexNumber = '0x21d21a2';
       const nullNumber = null;
       const undefinedNumber = undefined;
       const emptyString = '';
@@ -20,16 +20,16 @@ describe('test ethjs-format object', () => {
       const justPrefix = '0';
       const floatNumber = '238428.237842';
 
-      assert.equal(format.formatQuantity(emptyString, true), '0x00');
-      assert.equal(format.formatQuantity(zeroNumber, true), '0x00');
+      assert.equal(format.formatQuantity(emptyString, true), '0x0');
+      assert.equal(format.formatQuantity(zeroNumber, true), '0x0');
       assert.equal(format.formatQuantity(nullNumber, true), null);
       assert.equal(format.formatQuantity(undefinedNumber, true), undefinedNumber);
       assert.equal(format.formatQuantity(bignum, true), '0xB115'.toLowerCase());
       assert.equal(format.formatQuantity(num, true), '0x138157F2'.toLowerCase());
       assert.equal(format.formatQuantity(stringNumber, true), '0x37836E3012'.toLowerCase());
-      assert.equal(format.formatQuantity(noPrefixHexNumber, true), '0x021d21a2'.toLowerCase());
-      assert.equal(format.formatQuantity(prefixHexNumber, true), '0x021d21a2'.toLowerCase());
-      assert.equal(format.formatQuantity(justPrefix, true), '0x00');
+      assert.equal(format.formatQuantity(noPrefixHexNumber, true), '0x21d21a2'.toLowerCase());
+      assert.equal(format.formatQuantity(prefixHexNumber, true), '0x21d21a2'.toLowerCase());
+      assert.equal(format.formatQuantity(justPrefix, true), '0x0');
       assert.equal(format.formatQuantity('0x10', true), '0x10');
 
       try {
@@ -54,7 +54,7 @@ describe('test ethjs-format object', () => {
       const encodedSendTransactionObject = {
         'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
         'gas': '0x76c0', // 30400,
-        'gasPrice': '0x09184e72a000', // 10000000000000
+        'gasPrice': '0x9184e72a000', // 10000000000000
         'value': '0x9184e72a', // 2441406250
         'data': '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       };
@@ -123,7 +123,7 @@ describe('test ethjs-format object', () => {
       const num = 327243762;
       const stringNumber = '238428237842';
       const noPrefixHexNumber = '21D21A2';
-      const prefixHexNumber = '0x021d21a2';
+      const prefixHexNumber = '0x21d21a2';
       const nullNumber = null;
       const undefinedNumber = undefined;
       const pendingTag = 'pending';
@@ -139,8 +139,8 @@ describe('test ethjs-format object', () => {
       assert.equal(format.formatQuantityOrTag(bignum, true), '0xB115'.toLowerCase());
       assert.equal(format.formatQuantityOrTag(num, true), '0x138157F2'.toLowerCase());
       assert.equal(format.formatQuantityOrTag(stringNumber, true), '0x37836E3012'.toLowerCase());
-      assert.equal(format.formatQuantityOrTag(noPrefixHexNumber, true), '0x021d21a2'.toLowerCase());
-      assert.equal(format.formatQuantityOrTag(prefixHexNumber, true), '0x021d21a2'.toLowerCase());
+      assert.equal(format.formatQuantityOrTag(noPrefixHexNumber, true), '0x21d21a2'.toLowerCase());
+      assert.equal(format.formatQuantityOrTag(prefixHexNumber, true), '0x21d21a2'.toLowerCase());
     });
 
     it('should decode normally', () => {
@@ -235,7 +235,7 @@ describe('test ethjs-format object', () => {
         to: '0x85e43d8a49eeb85d32cf465507dd71d507100c12',
         value: '0x7f110', // 520464
         gas: '0x7f110', // 520464
-        gasPrice: '0x09184e72a000',
+        gasPrice: '0x9184e72a000',
         input: '0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360',
       };
 
@@ -265,7 +265,7 @@ describe('test ethjs-format object', () => {
         'to':'0x85e43d8a49eeb85d32cf465507dd71d507100c12',
         'value':'0x7f110', // 520464
         'gas': '0x7f110', // 520464
-        'gasPrice':'0x09184e72a000',
+        'gasPrice':'0x9184e72a000',
         'input':'0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360',
       };
 
@@ -338,7 +338,7 @@ describe('test ethjs-format object', () => {
 
       const encodedObject = format.formatObject('Filter', decodedFilterObject, true);
 
-      assert.equal(encodedObject.fromBlock, '0x055B903B'.toLowerCase());
+      assert.equal(encodedObject.fromBlock, '0x55B903B'.toLowerCase());
       assert.equal(encodedObject.toBlock, 'latest');
       assert.equal(Array.isArray(encodedObject.topics), true);
     });
@@ -348,7 +348,7 @@ describe('test ethjs-format object', () => {
         'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
         'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
         'gas': '0x76c0', // 30400,
-        'gasPrice': '0x09184e72a000', // 10000000000000
+        'gasPrice': '0x9184e72a000', // 10000000000000
         'value': '0x9184e72a', // 2441406250
         'data': '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       };
@@ -381,7 +381,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_1.data, '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675');
 
       assert.equal(encodedObject_1.gas, '0x76c0');
-      assert.equal(encodedObject_1.gasPrice, '0x09184e72a000');
+      assert.equal(encodedObject_1.gasPrice, '0x9184e72a000');
       assert.equal(encodedObject_1.value, '0x9184e72a');
 
       const decodedSendTransactionObject_2 = {
@@ -399,7 +399,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_2.data, '0x');
 
       assert.equal(encodedObject_2.gas, '0x76c0');
-      assert.equal(encodedObject_2.gasPrice, '0x09184e72a000');
+      assert.equal(encodedObject_2.gasPrice, '0x9184e72a000');
 
       const decodedSendTransactionObject_3 = {
         'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
@@ -414,7 +414,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_3.data, '0x');
 
       assert.equal(encodedObject_3.gas, '0x76c0');
-      assert.equal(encodedObject_3.gasPrice, '0x09184e72a000');
+      assert.equal(encodedObject_3.gasPrice, '0x9184e72a000');
 
       const decodedSendTransactionObject_4 = {
         'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
@@ -429,7 +429,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_4.data, '0x');
 
       assert.equal(encodedObject_4.gas, '0x14CCFF1D'.toLowerCase());
-      assert.equal(encodedObject_4.gasPrice, '0x09184e72a000');
+      assert.equal(encodedObject_4.gasPrice, '0x9184e72a000');
 
       const decodedSendTransactionObject_5 = {
         'from': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
@@ -443,7 +443,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_5.from, '0xd46e8dd67c5d32be8058bb8eb970870f07244567');
       assert.equal(encodedObject_4.data, '0x');
 
-      assert.equal(encodedObject_5.gas, '0x09184e72a000');
+      assert.equal(encodedObject_5.gas, '0x9184e72a000');
       assert.equal(encodedObject_5.gasPrice, '0x14CCFF1D'.toLowerCase());
     });
   });
@@ -472,7 +472,7 @@ describe('test ethjs-format object', () => {
       const num = 327243762;
       const stringNumber = '238428237842';
       const noPrefixHexNumber = '21D21A2';
-      const prefixHexNumber = '0x021d21a2';
+      const prefixHexNumber = '0x21d21a2';
       const nullNumber = null;
       const undefinedNumber = undefined;
 
@@ -481,8 +481,8 @@ describe('test ethjs-format object', () => {
       assert.equal(format.format('Q', bignum, true), '0xB115'.toLowerCase());
       assert.equal(format.format('Q', num, true), '0x138157F2'.toLowerCase());
       assert.equal(format.format('Q', stringNumber, true), '0x37836E3012'.toLowerCase());
-      assert.equal(format.format('Q', noPrefixHexNumber, true), '0x021d21a2'.toLowerCase());
-      assert.equal(format.format('Q', prefixHexNumber, true), '0x021d21a2'.toLowerCase());
+      assert.equal(format.format('Q', noPrefixHexNumber, true), '0x21d21a2'.toLowerCase());
+      assert.equal(format.format('Q', prefixHexNumber, true), '0x21d21a2'.toLowerCase());
     });
 
     it('should decode QUANTITY normally', () => {
@@ -525,7 +525,7 @@ describe('test ethjs-format object', () => {
       const num = 327243762;
       const stringNumber = '238428237842';
       const noPrefixHexNumber = '21D21A2';
-      const prefixHexNumber = '0x021d21a2';
+      const prefixHexNumber = '0x21d21a2';
       const nullNumber = null;
       const undefinedNumber = undefined;
       const pendingTag = 'pending';
@@ -541,8 +541,8 @@ describe('test ethjs-format object', () => {
       assert.equal(format.format('Q|T', bignum, true), '0xB115'.toLowerCase());
       assert.equal(format.format('Q|T', num, true), '0x138157F2'.toLowerCase());
       assert.equal(format.format('Q|T', stringNumber, true), '0x37836E3012'.toLowerCase());
-      assert.equal(format.format('Q|T', noPrefixHexNumber, true), '0x021d21a2'.toLowerCase());
-      assert.equal(format.format('Q|T', prefixHexNumber, true), '0x021d21a2'.toLowerCase());
+      assert.equal(format.format('Q|T', noPrefixHexNumber, true), '0x21d21a2'.toLowerCase());
+      assert.equal(format.format('Q|T', prefixHexNumber, true), '0x21d21a2'.toLowerCase());
     });
 
     it('should decode QUANTITY|TAG normally', () => {
@@ -585,7 +585,7 @@ describe('test ethjs-format object', () => {
         'from': '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
         'to': '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
         'gas': '', // 30400,
-        'gasPrice': '0x09184e72a000', // 10000000000000
+        'gasPrice': '0x9184e72a000', // 10000000000000
         'value': '0x9184e72a', // 2441406250
         'data': ''
       };
@@ -618,7 +618,7 @@ describe('test ethjs-format object', () => {
       assert.equal(encodedObject_1.data, '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675');
 
       assert.equal(encodedObject_1.gas, '0x76c0');
-      assert.equal(encodedObject_1.gasPrice, '0x09184e72a000');
+      assert.equal(encodedObject_1.gasPrice, '0x9184e72a000');
       assert.equal(encodedObject_1.value, '0x9184e72a');
     });
 
@@ -735,7 +735,7 @@ describe('test ethjs-format object', () => {
         from: '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
         to: '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
         gas: '0x76c0',
-        gasPrice: '0x09184e72a000',
+        gasPrice: '0x9184e72a000',
         value: '0x9184e72a',
         data: '0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675'
       }];
