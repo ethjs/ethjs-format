@@ -69,7 +69,7 @@ function formatData(value, byteLength) {
   }
 
   // throw if bytelength is not correct
-  if (typeof byteLength === 'number' && value !== null && output !== '0x' // support empty values
+  if (typeof byteLength === 'number' && value !== null && output !== '0x' && output !== '0x00' // support empty values
     && (!/^[0-9A-Fa-f]+$/.test(stripHexPrefix(output)) || outputByteLength !== 2 + byteLength * 2)) {
     throw new Error(`[ethjs-format] hex string '${output}' must be an alphanumeric ${2 + byteLength * 2} utf8 byte hex (chars: a-fA-F) string, is ${outputByteLength} bytes`);
   }
