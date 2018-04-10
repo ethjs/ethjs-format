@@ -2,9 +2,11 @@ const schema = require('ethjs-schema');
 const util = require('ethjs-util');
 const numberToBN = require('number-to-bn');
 const stripHexPrefix = require('strip-hex-prefix');
+const BN = require('bn.js');
 const padToEven = util.padToEven;
 const arrayContainsArray = util.arrayContainsArray;
 const getBinarySize = util.getBinarySize;
+const ten = new BN('10', 10);
 
 /**
  * Format quantity values, either encode to hex or decode to BigNumber
@@ -16,16 +18,17 @@ const getBinarySize = util.getBinarySize;
  * @returns {Optional} output to BigNumber or string
  * @throws error if value is a float
  */
-function formatQuantity(value, encode) {
+function formatQuantity(value, encode, pad) {
   if (['string', 'number', 'object'].indexOf(typeof value) === -1 || value === null) {
     return value;
   }
 
   const numberValue = numberToBN(value);
+  const numPadding = numberValue.lt(ten) && pad === true && !numberValue.isZero() ? '0' : '';
 
   if (numberToBN(value).isNeg()) { throw new Error(`[ethjs-format] while formatting quantity '${numberValue.toString(10)}', invalid negative number. Number must be positive or zero.`); }
 
-  return encode ? `0x${numberValue.toString(16)}` : numberValue;
+  return encode ? `0x${numPadding}${numberValue.toString(16)}` : numberValue;
 }
 
 /**
@@ -68,8 +71,11 @@ function formatData(value, byteLength) {
     outputByteLength = getBinarySize(output);
   }
 
+  // format double padded zeros.
+  if (output === '0x00') { output = '0x0'; }
+
   // throw if bytelength is not correct
-  if (typeof byteLength === 'number' && value !== null && output !== '0x' && output !== '0x00' // support empty values
+  if (typeof byteLength === 'number' && value !== null && output !== '0x' && output !== '0x0' // support empty values
     && (!/^[0-9A-Fa-f]+$/.test(stripHexPrefix(output)) || outputByteLength !== 2 + byteLength * 2)) {
     throw new Error(`[ethjs-format] hex string '${output}' must be an alphanumeric ${2 + byteLength * 2} utf8 byte hex (chars: a-fA-F) string, is ${outputByteLength} bytes`);
   }
@@ -185,6 +191,8 @@ function format(formatter, value, encode, lengthRequirement) {
   // if formatter is quantity or quantity or tag
   if (formatter === 'Q') {
     output = formatQuantity(value, encode);
+  } else if (formatter === 'QP') {
+    output = formatQuantity(value, encode, true);
   } else if (formatter === 'Q|T') {
     output = formatQuantityOrTag(value, encode);
   } else if (formatter === 'D') {

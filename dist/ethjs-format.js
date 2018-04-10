@@ -12,41 +12,41 @@
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// identity function for calling harmory imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmory exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		Object.defineProperty(exports, name, {
@@ -55,22 +55,22 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 			get: getter
 /******/ 		});
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-var isHexPrefixed = __webpack_require__(2);
+var isHexPrefixed = __webpack_require__(3);
 
 /**
  * Removes '0x' from a given `String` is present
@@ -101,7 +101,7 @@ module.exports = function stripHexPrefix(str) {
 
 'use strict'
 
-var base64 = __webpack_require__(7)
+var base64 = __webpack_require__(8)
 var ieee754 = __webpack_require__(9)
 var isArray = __webpack_require__(10)
 
@@ -1885,1292 +1885,6 @@ function isnan (val) {
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
-
-/**
- * Returns a `Boolean` on whether or not the a `String` starts with '0x'
- * @param {String} str the string input value
- * @return {Boolean} a boolean if it is or is not hex prefixed
- * @throws if the str input is not a string
- */
-module.exports = function isHexPrefixed(str) {
-  if (typeof str !== 'string') {
-    throw new Error("[is-hex-prefixed] value must be type 'string', is currently type " + (typeof str) + ", while checking isHexPrefixed.");
-  }
-
-  return str.slice(0, 2) === '0x';
-}
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
-
-var isHexPrefixed = __webpack_require__(2);
-var stripHexPrefix = __webpack_require__(0);
-
-/**
- * Pads a `String` to have an even length
- * @param {String} value
- * @return {String} output
- */
-function padToEven(value) {
-  var a = value; // eslint-disable-line
-
-  if (typeof a !== 'string') {
-    throw new Error('[ethjs-util] while padding to even, value must be string, is currently ' + typeof a + ', while padToEven.');
-  }
-
-  if (a.length % 2) {
-    a = '0' + a;
-  }
-
-  return a;
-}
-
-/**
- * Converts a `Number` into a hex `String`
- * @param {Number} i
- * @return {String}
- */
-function intToHex(i) {
-  var hex = i.toString(16); // eslint-disable-line
-
-  return '0x' + padToEven(hex);
-}
-
-/**
- * Converts an `Number` to a `Buffer`
- * @param {Number} i
- * @return {Buffer}
- */
-function intToBuffer(i) {
-  var hex = intToHex(i);
-
-  return Buffer.from(hex.slice(2), 'hex');
-}
-
-/**
- * Get the binary size of a string
- * @param {String} str
- * @return {Number}
- */
-function getBinarySize(str) {
-  if (typeof str !== 'string') {
-    throw new Error('[ethjs-util] while getting binary size, method getBinarySize requires input \'str\' to be type String, got \'' + typeof str + '\'.');
-  }
-
-  return Buffer.byteLength(str, 'utf8');
-}
-
-/**
- * Returns TRUE if the first specified array contains all elements
- * from the second one. FALSE otherwise.
- *
- * @param {array} superset
- * @param {array} subset
- *
- * @returns {boolean}
- */
-function arrayContainsArray(superset, subset, some) {
-  if (Array.isArray(superset) !== true) {
-    throw new Error('[ethjs-util] method arrayContainsArray requires input \'superset\' to be an array got type \'' + typeof superset + '\'');
-  }
-  if (Array.isArray(subset) !== true) {
-    throw new Error('[ethjs-util] method arrayContainsArray requires input \'subset\' to be an array got type \'' + typeof subset + '\'');
-  }
-
-  return subset[Boolean(some) && 'some' || 'every'](function (value) {
-    return superset.indexOf(value) >= 0;
-  });
-}
-
-/**
- * Should be called to get utf8 from it's hex representation
- *
- * @method toUtf8
- * @param {String} string in hex
- * @returns {String} ascii string representation of hex value
- */
-function toUtf8(hex) {
-  var bufferValue = new Buffer(padToEven(stripHexPrefix(hex).replace(/^0+|0+$/g, '')), 'hex');
-
-  return bufferValue.toString('utf8');
-}
-
-/**
- * Should be called to get ascii from it's hex representation
- *
- * @method toAscii
- * @param {String} string in hex
- * @returns {String} ascii string representation of hex value
- */
-function toAscii(hex) {
-  var str = ''; // eslint-disable-line
-  var i = 0,
-      l = hex.length; // eslint-disable-line
-
-  if (hex.substring(0, 2) === '0x') {
-    i = 2;
-  }
-
-  for (; i < l; i += 2) {
-    var code = parseInt(hex.substr(i, 2), 16);
-    str += String.fromCharCode(code);
-  }
-
-  return str;
-}
-
-/**
- * Should be called to get hex representation (prefixed by 0x) of utf8 string
- *
- * @method fromUtf8
- * @param {String} string
- * @param {Number} optional padding
- * @returns {String} hex representation of input string
- */
-function fromUtf8(stringValue) {
-  var str = new Buffer(stringValue, 'utf8');
-
-  return '0x' + padToEven(str.toString('hex')).replace(/^0+|0+$/g, '');
-}
-
-/**
- * Should be called to get hex representation (prefixed by 0x) of ascii string
- *
- * @method fromAscii
- * @param {String} string
- * @param {Number} optional padding
- * @returns {String} hex representation of input string
- */
-function fromAscii(stringValue) {
-  var hex = ''; // eslint-disable-line
-  for (var i = 0; i < stringValue.length; i++) {
-    // eslint-disable-line
-    var code = stringValue.charCodeAt(i);
-    var n = code.toString(16);
-    hex += n.length < 2 ? '0' + n : n;
-  }
-
-  return '0x' + hex;
-}
-
-/**
- * getKeys([{a: 1, b: 2}, {a: 3, b: 4}], 'a') => [1, 3]
- *
- * @method getKeys get specific key from inner object array of objects
- * @param {String} params
- * @param {String} key
- * @param {Boolean} allowEmpty
- * @returns {Array} output just a simple array of output keys
- */
-function getKeys(params, key, allowEmpty) {
-  if (!Array.isArray(params)) {
-    throw new Error('[ethjs-util] method getKeys expecting type Array as \'params\' input, got \'' + typeof params + '\'');
-  }
-  if (typeof key !== 'string') {
-    throw new Error('[ethjs-util] method getKeys expecting type String for input \'key\' got \'' + typeof key + '\'.');
-  }
-
-  var result = []; // eslint-disable-line
-
-  for (var i = 0; i < params.length; i++) {
-    // eslint-disable-line
-    var value = params[i][key]; // eslint-disable-line
-    if (allowEmpty && !value) {
-      value = '';
-    } else if (typeof value !== 'string') {
-      throw new Error('invalid abi');
-    }
-    result.push(value);
-  }
-
-  return result;
-}
-
-/**
- * Is the string a hex string.
- *
- * @method check if string is hex string of specific length
- * @param {String} value
- * @param {Number} length
- * @returns {Boolean} output the string is a hex string
- */
-function isHexString(value, length) {
-  if (typeof value !== 'string' || !value.match(/^0x[0-9A-Fa-f]*$/)) {
-    return false;
-  }
-
-  if (length && value.length !== 2 + 2 * length) {
-    return false;
-  }
-
-  return true;
-}
-
-module.exports = {
-  arrayContainsArray: arrayContainsArray,
-  intToBuffer: intToBuffer,
-  getBinarySize: getBinarySize,
-  isHexPrefixed: isHexPrefixed,
-  stripHexPrefix: stripHexPrefix,
-  padToEven: padToEven,
-  intToHex: intToHex,
-  fromAscii: fromAscii,
-  fromUtf8: fromUtf8,
-  toAscii: toAscii,
-  toUtf8: toUtf8,
-  getKeys: getKeys,
-  isHexString: isHexString
-};
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-module.exports = {
-	"methods": {
-		"web3_clientVersion": [
-			[],
-			"S"
-		],
-		"web3_sha3": [
-			[
-				"S"
-			],
-			"D",
-			1
-		],
-		"net_version": [
-			[],
-			"S"
-		],
-		"net_peerCount": [
-			[],
-			"Q"
-		],
-		"net_listening": [
-			[],
-			"B"
-		],
-		"personal_sign": [
-			[
-				"D20",
-				"D",
-				"S"
-			],
-			"D",
-			2
-		],
-		"personal_ecRecover": [
-			[
-				"D",
-				"D"
-			],
-			"D20",
-			2
-		],
-		"eth_protocolVersion": [
-			[],
-			"S"
-		],
-		"eth_syncing": [
-			[],
-			"Boolean|EthSyncing"
-		],
-		"eth_coinbase": [
-			[],
-			"D20"
-		],
-		"eth_mining": [
-			[],
-			"B"
-		],
-		"eth_hashrate": [
-			[],
-			"Q"
-		],
-		"eth_gasPrice": [
-			[],
-			"Q"
-		],
-		"eth_accounts": [
-			[],
-			[
-				"D20"
-			]
-		],
-		"eth_blockNumber": [
-			[],
-			"Q"
-		],
-		"eth_getBalance": [
-			[
-				"D20",
-				"Q|T"
-			],
-			"Q",
-			1,
-			2
-		],
-		"eth_getStorageAt": [
-			[
-				"D20",
-				"Q",
-				"Q|T"
-			],
-			"D",
-			2,
-			2
-		],
-		"eth_getTransactionCount": [
-			[
-				"D20",
-				"Q|T"
-			],
-			"Q",
-			1,
-			2
-		],
-		"eth_getBlockTransactionCountByHash": [
-			[
-				"D32"
-			],
-			"Q",
-			1
-		],
-		"eth_getBlockTransactionCountByNumber": [
-			[
-				"Q|T"
-			],
-			"Q",
-			1
-		],
-		"eth_getUncleCountByBlockHash": [
-			[
-				"D32"
-			],
-			"Q",
-			1
-		],
-		"eth_getUncleCountByBlockNumber": [
-			[
-				"Q"
-			],
-			"Q",
-			1
-		],
-		"eth_getCode": [
-			[
-				"D20",
-				"Q|T"
-			],
-			"D",
-			1,
-			2
-		],
-		"eth_sign": [
-			[
-				"D20",
-				"D32"
-			],
-			"D",
-			2
-		],
-		"eth_sendTransaction": [
-			[
-				"SendTransaction"
-			],
-			"D",
-			1
-		],
-		"eth_sendRawTransaction": [
-			[
-				"D"
-			],
-			"D32",
-			1
-		],
-		"eth_call": [
-			[
-				"CallTransaction",
-				"Q|T"
-			],
-			"D",
-			1,
-			2
-		],
-		"eth_estimateGas": [
-			[
-				"EstimateTransaction",
-				"Q|T"
-			],
-			"Q",
-			1
-		],
-		"eth_getBlockByHash": [
-			[
-				"D32",
-				"B"
-			],
-			"Block",
-			2
-		],
-		"eth_getBlockByNumber": [
-			[
-				"Q|T",
-				"B"
-			],
-			"Block",
-			2
-		],
-		"eth_getTransactionByHash": [
-			[
-				"D32"
-			],
-			"Transaction",
-			1
-		],
-		"eth_getTransactionByBlockHashAndIndex": [
-			[
-				"D32",
-				"Q"
-			],
-			"Transaction",
-			2
-		],
-		"eth_getTransactionByBlockNumberAndIndex": [
-			[
-				"Q|T",
-				"Q"
-			],
-			"Transaction",
-			2
-		],
-		"eth_getTransactionReceipt": [
-			[
-				"D32"
-			],
-			"Receipt",
-			1
-		],
-		"eth_getUncleByBlockHashAndIndex": [
-			[
-				"D32",
-				"Q"
-			],
-			"Block",
-			1
-		],
-		"eth_getUncleByBlockNumberAndIndex": [
-			[
-				"Q|T",
-				"Q"
-			],
-			"Block",
-			2
-		],
-		"eth_getCompilers": [
-			[],
-			[
-				"S"
-			]
-		],
-		"eth_compileLLL": [
-			[
-				"S"
-			],
-			"D",
-			1
-		],
-		"eth_compileSolidity": [
-			[
-				"S"
-			],
-			"D",
-			1
-		],
-		"eth_compileSerpent": [
-			[
-				"S"
-			],
-			"D",
-			1
-		],
-		"eth_newFilter": [
-			[
-				"Filter"
-			],
-			"Q",
-			1
-		],
-		"eth_newBlockFilter": [
-			[],
-			"Q"
-		],
-		"eth_newPendingTransactionFilter": [
-			[],
-			"Q"
-		],
-		"eth_uninstallFilter": [
-			[
-				"Q"
-			],
-			"B",
-			1
-		],
-		"eth_getFilterChanges": [
-			[
-				"Q"
-			],
-			[
-				"FilterChange"
-			],
-			1
-		],
-		"eth_getFilterLogs": [
-			[
-				"Q"
-			],
-			[
-				"FilterChange"
-			],
-			1
-		],
-		"eth_getLogs": [
-			[
-				"Filter"
-			],
-			[
-				"FilterChange"
-			],
-			1
-		],
-		"eth_getWork": [
-			[],
-			[
-				"D"
-			]
-		],
-		"eth_submitWork": [
-			[
-				"D",
-				"D32",
-				"D32"
-			],
-			"B",
-			3
-		],
-		"eth_submitHashrate": [
-			[
-				"D",
-				"D"
-			],
-			"B",
-			2
-		],
-		"db_putString": [
-			[
-				"S",
-				"S",
-				"S"
-			],
-			"B",
-			2
-		],
-		"db_getString": [
-			[
-				"S",
-				"S"
-			],
-			"S",
-			2
-		],
-		"db_putHex": [
-			[
-				"S",
-				"S",
-				"D"
-			],
-			"B",
-			2
-		],
-		"db_getHex": [
-			[
-				"S",
-				"S"
-			],
-			"D",
-			2
-		],
-		"shh_post": [
-			[
-				"SHHPost"
-			],
-			"B",
-			1
-		],
-		"shh_version": [
-			[],
-			"S"
-		],
-		"shh_newIdentity": [
-			[],
-			"D"
-		],
-		"shh_hasIdentity": [
-			[
-				"D"
-			],
-			"B"
-		],
-		"shh_newGroup": [
-			[],
-			"D"
-		],
-		"shh_addToGroup": [
-			[
-				"D"
-			],
-			"B",
-			1
-		],
-		"shh_newFilter": [
-			[
-				"SHHFilter"
-			],
-			"Q",
-			1
-		],
-		"shh_uninstallFilter": [
-			[
-				"Q"
-			],
-			"B",
-			1
-		],
-		"shh_getFilterChanges": [
-			[
-				"Q"
-			],
-			[
-				"SHHFilterChange"
-			],
-			1
-		],
-		"shh_getMessages": [
-			[
-				"Q"
-			],
-			[
-				"SHHFilterChange"
-			],
-			1
-		]
-	},
-	"tags": [
-		"latest",
-		"earliest",
-		"pending"
-	],
-	"objects": {
-		"EthSyncing": {
-			"__required": [],
-			"startingBlock": "Q",
-			"currentBlock": "Q",
-			"highestBlock": "Q"
-		},
-		"SendTransaction": {
-			"__required": [
-				"from",
-				"data"
-			],
-			"from": "D20",
-			"to": "D20",
-			"gas": "Q",
-			"gasPrice": "Q",
-			"value": "Q",
-			"data": "D",
-			"nonce": "Q"
-		},
-		"EstimateTransaction": {
-			"__required": [],
-			"from": "D20",
-			"to": "D20",
-			"gas": "Q",
-			"gasPrice": "Q",
-			"value": "Q",
-			"data": "D",
-			"nonce": "Q"
-		},
-		"CallTransaction": {
-			"__required": [
-				"to"
-			],
-			"from": "D20",
-			"to": "D20",
-			"gas": "Q",
-			"gasPrice": "Q",
-			"value": "Q",
-			"data": "D",
-			"nonce": "Q"
-		},
-		"Block": {
-			"__required": [],
-			"number": "Q",
-			"hash": "D32",
-			"parentHash": "D32",
-			"nonce": "D",
-			"sha3Uncles": "D",
-			"logsBloom": "D",
-			"transactionsRoot": "D",
-			"stateRoot": "D",
-			"receiptsRoot": "D",
-			"miner": "D",
-			"difficulty": "Q",
-			"totalDifficulty": "Q",
-			"extraData": "D",
-			"size": "Q",
-			"gasLimit": "Q",
-			"gasUsed": "Q",
-			"timestamp": "Q",
-			"transactions": [
-				"DATA|Transaction"
-			],
-			"uncles": [
-				"D"
-			]
-		},
-		"Transaction": {
-			"__required": [],
-			"hash": "D32",
-			"nonce": "Q",
-			"blockHash": "D32",
-			"blockNumber": "Q",
-			"transactionIndex": "Q",
-			"from": "D20",
-			"to": "D20",
-			"value": "Q",
-			"gasPrice": "Q",
-			"gas": "Q",
-			"input": "D"
-		},
-		"Receipt": {
-			"__required": [],
-			"transactionHash": "D32",
-			"transactionIndex": "Q",
-			"blockHash": "D32",
-			"blockNumber": "Q",
-			"cumulativeGasUsed": "Q",
-			"gasUsed": "Q",
-			"contractAddress": "D20",
-			"logs": [
-				"FilterChange"
-			]
-		},
-		"Filter": {
-			"__required": [],
-			"fromBlock": "Q|T",
-			"toBlock": "Q|T",
-			"address": "Array|Data",
-			"topics": [
-				"D"
-			]
-		},
-		"FilterChange": {
-			"__required": [],
-			"removed": "B",
-			"logIndex": "Q",
-			"transactionIndex": "Q",
-			"transactionHash": "D32",
-			"blockHash": "D32",
-			"blockNumber": "Q",
-			"address": "D20",
-			"data": "Array|DATA",
-			"topics": [
-				"D"
-			]
-		},
-		"SHHPost": {
-			"__required": [
-				"topics",
-				"payload",
-				"priority",
-				"ttl"
-			],
-			"from": "D",
-			"to": "D",
-			"topics": [
-				"D"
-			],
-			"payload": "D",
-			"priority": "Q",
-			"ttl": "Q"
-		},
-		"SHHFilter": {
-			"__required": [
-				"topics"
-			],
-			"to": "D",
-			"topics": [
-				"D"
-			]
-		},
-		"SHHFilterChange": {
-			"__required": [],
-			"hash": "D",
-			"from": "D",
-			"to": "D",
-			"expiry": "Q",
-			"ttl": "Q",
-			"sent": "Q",
-			"topics": [
-				"D"
-			],
-			"payload": "D",
-			"workProved": "Q"
-		},
-		"SHHMessage": {
-			"__required": [],
-			"hash": "D",
-			"from": "D",
-			"to": "D",
-			"expiry": "Q",
-			"ttl": "Q",
-			"sent": "Q",
-			"topics": [
-				"D"
-			],
-			"payload": "D",
-			"workProved": "Q"
-		}
-	}
-};
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-var BN = __webpack_require__(8);
-var stripHexPrefix = __webpack_require__(0);
-
-/**
- * Returns a BN object, converts a number value to a BN
- * @param {String|Number|Object} `arg` input a string number, hex string number, number, BigNumber or BN object
- * @return {Object} `output` BN object of the number
- * @throws if the argument is not an array, object that isn't a bignumber, not a string number or number
- */
-module.exports = function numberToBN(arg) {
-  if (typeof arg === 'string' || typeof arg === 'number') {
-    var multiplier = new BN(1); // eslint-disable-line
-    var formattedString = String(arg).toLowerCase().trim();
-    var isHexPrefixed = formattedString.substr(0, 2) === '0x' || formattedString.substr(0, 3) === '-0x';
-    var stringArg = stripHexPrefix(formattedString); // eslint-disable-line
-    if (stringArg.substr(0, 1) === '-') {
-      stringArg = stripHexPrefix(stringArg.slice(1));
-      multiplier = new BN(-1, 10);
-    }
-    stringArg = stringArg === '' ? '0' : stringArg;
-
-    if ((!stringArg.match(/^-?[0-9]+$/) && stringArg.match(/^[0-9A-Fa-f]+$/))
-      || stringArg.match(/^[a-fA-F]+$/)
-      || (isHexPrefixed === true && stringArg.match(/^[0-9A-Fa-f]+$/))) {
-      return new BN(stringArg, 16).mul(multiplier);
-    }
-
-    if ((stringArg.match(/^-?[0-9]+$/) || stringArg === '') && isHexPrefixed === false) {
-      return new BN(stringArg, 10).mul(multiplier);
-    }
-  } else if (typeof arg === 'object' && arg.toString && (!arg.pop && !arg.push)) {
-    if (arg.toString(10).match(/^-?[0-9]+$/) && (arg.mul || arg.dividedToIntegerBy)) {
-      return new BN(arg.toString(10), 10);
-    }
-  }
-
-  throw new Error('[number-to-bn] while converting number ' + JSON.stringify(arg) + ' to BN.js instance, error: invalid number value. Value must be an integer, hex string, BN or BigNumber instance. Note, decimals are not supported.');
-}
-
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-'use strict';
-
-var schema = __webpack_require__(4);
-var util = __webpack_require__(3);
-var numberToBN = __webpack_require__(5);
-var stripHexPrefix = __webpack_require__(0);
-var padToEven = util.padToEven;
-var arrayContainsArray = util.arrayContainsArray;
-var getBinarySize = util.getBinarySize;
-
-/**
- * Format quantity values, either encode to hex or decode to BigNumber
- * should intake null, stringNumber, number, BN
- *
- * @method formatQuantity
- * @param {String|BigNumber|Number} value quantity or tag to convert
- * @param {Boolean} encode to hex or decode to BigNumber
- * @returns {Optional} output to BigNumber or string
- * @throws error if value is a float
- */
-function formatQuantity(value, encode) {
-  if (['string', 'number', 'object'].indexOf(typeof value) === -1 || value === null) {
-    return value;
-  }
-
-  var numberValue = numberToBN(value);
-
-  if (numberToBN(value).isNeg()) {
-    throw new Error('[ethjs-format] while formatting quantity \'' + numberValue.toString(10) + '\', invalid negative number. Number must be positive or zero.');
-  }
-
-  return encode ? '0x' + numberValue.toString(16) : numberValue;
-}
-
-/**
- * Format quantity or tag, if tag bypass return, else format quantity
- * should intake null, stringNumber, number, BN, string tag
- *
- * @method formatQuantityOrTag
- * @param {String|BigNumber|Number} value quantity or tag to convert
- * @param {Boolean} encode encode the number to hex or decode to BigNumber
- * @returns {Object|String} output to BigNumber or string
- * @throws error if value is a float
- */
-function formatQuantityOrTag(value, encode) {
-  var output = value; // eslint-disable-line
-
-  // if the value is a tag, bypass
-  if (schema.tags.indexOf(value) === -1) {
-    output = formatQuantity(value, encode);
-  }
-
-  return output;
-}
-
-/**
- * FormatData under strict conditions hex prefix
- *
- * @method formatData
- * @param {String} value the bytes data to be formatted
- * @param {Number} byteLength the required byte length (usually 20 or 32)
- * @returns {String} output output formatted data
- * @throws error if minimum length isnt met
- */
-function formatData(value, byteLength) {
-  var output = value; // eslint-disable-line
-  var outputByteLength = 0; // eslint-disable-line
-
-  // prefix only under strict conditions, else bypass
-  if (typeof value === 'string') {
-    output = '0x' + padToEven(stripHexPrefix(value));
-    outputByteLength = getBinarySize(output);
-  }
-
-  // throw if bytelength is not correct
-  if (typeof byteLength === 'number' && value !== null && output !== '0x' // support empty values
-  && (!/^[0-9A-Fa-f]+$/.test(stripHexPrefix(output)) || outputByteLength !== 2 + byteLength * 2)) {
-    throw new Error('[ethjs-format] hex string \'' + output + '\' must be an alphanumeric ' + (2 + byteLength * 2) + ' utf8 byte hex (chars: a-fA-F) string, is ' + outputByteLength + ' bytes');
-  }
-
-  return output;
-}
-
-/**
- * Format object, even with random RPC caviets
- *
- * @method formatObject
- * @param {String|Array} formatter the unit to convert to, default ether
- * @param {Object} value the object value
- * @param {Boolean} encode encode to hex or decode to BigNumber
- * @returns {Object} output object
- * @throws error if value is a float
- */
-function formatObject(formatter, value, encode) {
-  var output = Object.assign({}, value); // eslint-disable-line
-  var formatObject = null; // eslint-disable-line
-
-  // if the object is a string flag, then retreive the object
-  if (typeof formatter === 'string') {
-    if (formatter === 'Boolean|EthSyncing') {
-      formatObject = Object.assign({}, schema.objects.EthSyncing);
-    } else if (formatter === 'DATA|Transaction') {
-      formatObject = Object.assign({}, schema.objects.Transaction);
-    } else {
-      formatObject = Object.assign({}, schema.objects[formatter]);
-    }
-  }
-
-  // check if all required data keys are fulfilled
-  if (!arrayContainsArray(Object.keys(value), formatObject.__required)) {
-    // eslint-disable-line
-    throw new Error('[ethjs-format] object ' + JSON.stringify(value) + ' must contain properties: ' + formatObject.__required.join(', ')); // eslint-disable-line
-  }
-
-  // assume formatObject is an object, go through keys and format each
-  Object.keys(formatObject).forEach(function (valueKey) {
-    if (valueKey !== '__required' && typeof value[valueKey] !== 'undefined') {
-      output[valueKey] = format(formatObject[valueKey], value[valueKey], encode);
-    }
-  });
-
-  return output;
-}
-
-/**
- * Format array
- *
- * @method formatArray
- * @param {String|Array} formatter the unit to convert to, default ether
- * @param {Object} value the value in question
- * @param {Boolean} encode encode to hex or decode to BigNumber
- * @param {Number} lengthRequirement the required minimum array length
- * @returns {Object} output object
- * @throws error if minimum length isnt met
- */
-function formatArray(formatter, value, encode, lengthRequirement) {
-  var output = value.slice(); // eslint-disable-line
-  var formatObject = formatter; // eslint-disable-line
-
-  // if the formatter is an array or data, then make format object an array data
-  if (formatter === 'Array|DATA') {
-    formatObject = ['D'];
-  }
-
-  // if formatter is a FilterChange and acts like a BlockFilter
-  // or PendingTx change format object to tx hash array
-  if (formatter === 'FilterChange' && typeof value[0] === 'string') {
-    formatObject = ['D32'];
-  }
-
-  // enforce minimum value length requirements
-  if (encode === true && typeof lengthRequirement === 'number' && value.length < lengthRequirement) {
-    throw new Error('array ' + JSON.stringify(value) + ' must contain at least ' + lengthRequirement + ' params, but only contains ' + value.length + '.'); // eslint-disable-line
-  }
-
-  // make new array, avoid mutation
-  formatObject = formatObject.slice();
-
-  // assume formatObject is an object, go through keys and format each
-  value.forEach(function (valueKey, valueIndex) {
-    // use key zero as formatter for all values, unless otherwise specified
-    var formatObjectKey = 0; // eslint-disable-line
-
-    // if format array is exact, check each argument against formatter argument
-    if (formatObject.length > 1) {
-      formatObjectKey = valueIndex;
-    }
-
-    output[valueIndex] = format(formatObject[formatObjectKey], valueKey, encode);
-  });
-
-  return output;
-}
-
-/**
- * Format various kinds of data to RPC spec or into digestable JS objects
- *
- * @method format
- * @param {String|Array} formatter the data formatter
- * @param {String|Array|Object|Null|Number} value the data value input
- * @param {Boolean} encode encode to hex or decode to BigNumbers, Strings, Booleans, Null
- * @param {Number} lengthRequirement the minimum data length requirement
- * @throws error if minimum length isnt met
- */
-function format(formatter, value, encode, lengthRequirement) {
-  var output = value; // eslint-disable-line
-
-  // if formatter is quantity or quantity or tag
-  if (formatter === 'Q') {
-    output = formatQuantity(value, encode);
-  } else if (formatter === 'Q|T') {
-    output = formatQuantityOrTag(value, encode);
-  } else if (formatter === 'D') {
-    output = formatData(value); // dont format data flagged objects like compiler output
-  } else if (formatter === 'D20') {
-    output = formatData(value, 20); // dont format data flagged objects like compiler output
-  } else if (formatter === 'D32') {
-    output = formatData(value, 32); // dont format data flagged objects like compiler output
-  } else {
-    // if value is an object or array
-    if (typeof value === 'object' && value !== null && Array.isArray(value) === false) {
-      output = formatObject(formatter, value, encode);
-    } else if (Array.isArray(value)) {
-      output = formatArray(formatter, value, encode, lengthRequirement);
-    }
-  }
-
-  return output;
-}
-
-/**
- * Format RPC inputs generally to the node or TestRPC
- *
- * @method formatInputs
- * @param {Object} method the data formatter
- * @param {Array} inputs the data inputs
- * @returns {Array} output the formatted inputs array
- * @throws error if minimum length isnt met
- */
-function formatInputs(method, inputs) {
-  return format(schema.methods[method][0], inputs, true, schema.methods[method][2]);
-}
-
-/**
- * Format RPC outputs generally from the node or TestRPC
- *
- * @method formatOutputs
- * @param {Object} method the data formatter
- * @param {Array|String|Null|Boolean|Object} outputs the data inputs
- * @returns {Array|String|Null|Boolean|Object} output the formatted data
- */
-function formatOutputs(method, outputs) {
-  return format(schema.methods[method][1], outputs, false);
-}
-
-// export formatters
-module.exports = {
-  schema: schema,
-  formatQuantity: formatQuantity,
-  formatQuantityOrTag: formatQuantityOrTag,
-  formatObject: formatObject,
-  formatArray: formatArray,
-  format: format,
-  formatInputs: formatInputs,
-  formatOutputs: formatOutputs
-};
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-"use strict";
-'use strict'
-
-exports.byteLength = byteLength
-exports.toByteArray = toByteArray
-exports.fromByteArray = fromByteArray
-
-var lookup = []
-var revLookup = []
-var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
-
-var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-for (var i = 0, len = code.length; i < len; ++i) {
-  lookup[i] = code[i]
-  revLookup[code.charCodeAt(i)] = i
-}
-
-revLookup['-'.charCodeAt(0)] = 62
-revLookup['_'.charCodeAt(0)] = 63
-
-function placeHoldersCount (b64) {
-  var len = b64.length
-  if (len % 4 > 0) {
-    throw new Error('Invalid string. Length must be a multiple of 4')
-  }
-
-  // the number of equal signs (place holders)
-  // if there are two placeholders, than the two characters before it
-  // represent one byte
-  // if there is only one, then the three characters before it represent 2 bytes
-  // this is just a cheap hack to not do indexOf twice
-  return b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0
-}
-
-function byteLength (b64) {
-  // base64 is 4/3 + up to two characters of the original data
-  return b64.length * 3 / 4 - placeHoldersCount(b64)
-}
-
-function toByteArray (b64) {
-  var i, j, l, tmp, placeHolders, arr
-  var len = b64.length
-  placeHolders = placeHoldersCount(b64)
-
-  arr = new Arr(len * 3 / 4 - placeHolders)
-
-  // if there are placeholders, only get up to the last complete 4 chars
-  l = placeHolders > 0 ? len - 4 : len
-
-  var L = 0
-
-  for (i = 0, j = 0; i < l; i += 4, j += 3) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
-    arr[L++] = (tmp >> 16) & 0xFF
-    arr[L++] = (tmp >> 8) & 0xFF
-    arr[L++] = tmp & 0xFF
-  }
-
-  if (placeHolders === 2) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
-    arr[L++] = tmp & 0xFF
-  } else if (placeHolders === 1) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
-    arr[L++] = (tmp >> 8) & 0xFF
-    arr[L++] = tmp & 0xFF
-  }
-
-  return arr
-}
-
-function tripletToBase64 (num) {
-  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
-}
-
-function encodeChunk (uint8, start, end) {
-  var tmp
-  var output = []
-  for (var i = start; i < end; i += 3) {
-    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
-    output.push(tripletToBase64(tmp))
-  }
-  return output.join('')
-}
-
-function fromByteArray (uint8) {
-  var tmp
-  var len = uint8.length
-  var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
-  var output = ''
-  var parts = []
-  var maxChunkLength = 16383 // must be multiple of 3
-
-  // go through the array every three bytes, we'll deal with trailing stuff later
-  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
-  }
-
-  // pad the end with zeros, but make sure to not forget the extra bytes
-  if (extraBytes === 1) {
-    tmp = uint8[len - 1]
-    output += lookup[tmp >> 2]
-    output += lookup[(tmp << 4) & 0x3F]
-    output += '=='
-  } else if (extraBytes === 2) {
-    tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
-    output += lookup[tmp >> 10]
-    output += lookup[(tmp >> 4) & 0x3F]
-    output += lookup[(tmp << 2) & 0x3F]
-    output += '='
-  }
-
-  parts.push(output)
-
-  return parts.join('')
-}
-
-
-/***/ },
-/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {(function (module, exports) {
@@ -6604,12 +5318,1318 @@ function fromByteArray (uint8) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)(module)))
 
 /***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+/**
+ * Returns a `Boolean` on whether or not the a `String` starts with '0x'
+ * @param {String} str the string input value
+ * @return {Boolean} a boolean if it is or is not hex prefixed
+ * @throws if the str input is not a string
+ */
+module.exports = function isHexPrefixed(str) {
+  if (typeof str !== 'string') {
+    throw new Error("[is-hex-prefixed] value must be type 'string', is currently type " + (typeof str) + ", while checking isHexPrefixed.");
+  }
+
+  return str.slice(0, 2) === '0x';
+}
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
+
+var isHexPrefixed = __webpack_require__(3);
+var stripHexPrefix = __webpack_require__(0);
+
+/**
+ * Pads a `String` to have an even length
+ * @param {String} value
+ * @return {String} output
+ */
+function padToEven(value) {
+  var a = value; // eslint-disable-line
+
+  if (typeof a !== 'string') {
+    throw new Error('[ethjs-util] while padding to even, value must be string, is currently ' + typeof a + ', while padToEven.');
+  }
+
+  if (a.length % 2) {
+    a = '0' + a;
+  }
+
+  return a;
+}
+
+/**
+ * Converts a `Number` into a hex `String`
+ * @param {Number} i
+ * @return {String}
+ */
+function intToHex(i) {
+  var hex = i.toString(16); // eslint-disable-line
+
+  return '0x' + padToEven(hex);
+}
+
+/**
+ * Converts an `Number` to a `Buffer`
+ * @param {Number} i
+ * @return {Buffer}
+ */
+function intToBuffer(i) {
+  var hex = intToHex(i);
+
+  return Buffer.from(hex.slice(2), 'hex');
+}
+
+/**
+ * Get the binary size of a string
+ * @param {String} str
+ * @return {Number}
+ */
+function getBinarySize(str) {
+  if (typeof str !== 'string') {
+    throw new Error('[ethjs-util] while getting binary size, method getBinarySize requires input \'str\' to be type String, got \'' + typeof str + '\'.');
+  }
+
+  return Buffer.byteLength(str, 'utf8');
+}
+
+/**
+ * Returns TRUE if the first specified array contains all elements
+ * from the second one. FALSE otherwise.
+ *
+ * @param {array} superset
+ * @param {array} subset
+ *
+ * @returns {boolean}
+ */
+function arrayContainsArray(superset, subset, some) {
+  if (Array.isArray(superset) !== true) {
+    throw new Error('[ethjs-util] method arrayContainsArray requires input \'superset\' to be an array got type \'' + typeof superset + '\'');
+  }
+  if (Array.isArray(subset) !== true) {
+    throw new Error('[ethjs-util] method arrayContainsArray requires input \'subset\' to be an array got type \'' + typeof subset + '\'');
+  }
+
+  return subset[Boolean(some) && 'some' || 'every'](function (value) {
+    return superset.indexOf(value) >= 0;
+  });
+}
+
+/**
+ * Should be called to get utf8 from it's hex representation
+ *
+ * @method toUtf8
+ * @param {String} string in hex
+ * @returns {String} ascii string representation of hex value
+ */
+function toUtf8(hex) {
+  var bufferValue = new Buffer(padToEven(stripHexPrefix(hex).replace(/^0+|0+$/g, '')), 'hex');
+
+  return bufferValue.toString('utf8');
+}
+
+/**
+ * Should be called to get ascii from it's hex representation
+ *
+ * @method toAscii
+ * @param {String} string in hex
+ * @returns {String} ascii string representation of hex value
+ */
+function toAscii(hex) {
+  var str = ''; // eslint-disable-line
+  var i = 0,
+      l = hex.length; // eslint-disable-line
+
+  if (hex.substring(0, 2) === '0x') {
+    i = 2;
+  }
+
+  for (; i < l; i += 2) {
+    var code = parseInt(hex.substr(i, 2), 16);
+    str += String.fromCharCode(code);
+  }
+
+  return str;
+}
+
+/**
+ * Should be called to get hex representation (prefixed by 0x) of utf8 string
+ *
+ * @method fromUtf8
+ * @param {String} string
+ * @param {Number} optional padding
+ * @returns {String} hex representation of input string
+ */
+function fromUtf8(stringValue) {
+  var str = new Buffer(stringValue, 'utf8');
+
+  return '0x' + padToEven(str.toString('hex')).replace(/^0+|0+$/g, '');
+}
+
+/**
+ * Should be called to get hex representation (prefixed by 0x) of ascii string
+ *
+ * @method fromAscii
+ * @param {String} string
+ * @param {Number} optional padding
+ * @returns {String} hex representation of input string
+ */
+function fromAscii(stringValue) {
+  var hex = ''; // eslint-disable-line
+  for (var i = 0; i < stringValue.length; i++) {
+    // eslint-disable-line
+    var code = stringValue.charCodeAt(i);
+    var n = code.toString(16);
+    hex += n.length < 2 ? '0' + n : n;
+  }
+
+  return '0x' + hex;
+}
+
+/**
+ * getKeys([{a: 1, b: 2}, {a: 3, b: 4}], 'a') => [1, 3]
+ *
+ * @method getKeys get specific key from inner object array of objects
+ * @param {String} params
+ * @param {String} key
+ * @param {Boolean} allowEmpty
+ * @returns {Array} output just a simple array of output keys
+ */
+function getKeys(params, key, allowEmpty) {
+  if (!Array.isArray(params)) {
+    throw new Error('[ethjs-util] method getKeys expecting type Array as \'params\' input, got \'' + typeof params + '\'');
+  }
+  if (typeof key !== 'string') {
+    throw new Error('[ethjs-util] method getKeys expecting type String for input \'key\' got \'' + typeof key + '\'.');
+  }
+
+  var result = []; // eslint-disable-line
+
+  for (var i = 0; i < params.length; i++) {
+    // eslint-disable-line
+    var value = params[i][key]; // eslint-disable-line
+    if (allowEmpty && !value) {
+      value = '';
+    } else if (typeof value !== 'string') {
+      throw new Error('invalid abi');
+    }
+    result.push(value);
+  }
+
+  return result;
+}
+
+/**
+ * Is the string a hex string.
+ *
+ * @method check if string is hex string of specific length
+ * @param {String} value
+ * @param {Number} length
+ * @returns {Boolean} output the string is a hex string
+ */
+function isHexString(value, length) {
+  if (typeof value !== 'string' || !value.match(/^0x[0-9A-Fa-f]*$/)) {
+    return false;
+  }
+
+  if (length && value.length !== 2 + 2 * length) {
+    return false;
+  }
+
+  return true;
+}
+
+module.exports = {
+  arrayContainsArray: arrayContainsArray,
+  intToBuffer: intToBuffer,
+  getBinarySize: getBinarySize,
+  isHexPrefixed: isHexPrefixed,
+  stripHexPrefix: stripHexPrefix,
+  padToEven: padToEven,
+  intToHex: intToHex,
+  fromAscii: fromAscii,
+  fromUtf8: fromUtf8,
+  toAscii: toAscii,
+  toUtf8: toUtf8,
+  getKeys: getKeys,
+  isHexString: isHexString
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1).Buffer))
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+module.exports = {
+	"methods": {
+		"web3_clientVersion": [
+			[],
+			"S"
+		],
+		"web3_sha3": [
+			[
+				"S"
+			],
+			"D",
+			1
+		],
+		"net_version": [
+			[],
+			"S"
+		],
+		"net_peerCount": [
+			[],
+			"Q"
+		],
+		"net_listening": [
+			[],
+			"B"
+		],
+		"personal_sign": [
+			[
+				"D",
+				"D20",
+				"S"
+			],
+			"D",
+			2
+		],
+		"personal_ecRecover": [
+			[
+				"D",
+				"D"
+			],
+			"D20",
+			2
+		],
+		"eth_protocolVersion": [
+			[],
+			"S"
+		],
+		"eth_syncing": [
+			[],
+			"B|EthSyncing"
+		],
+		"eth_coinbase": [
+			[],
+			"D20"
+		],
+		"eth_mining": [
+			[],
+			"B"
+		],
+		"eth_hashrate": [
+			[],
+			"Q"
+		],
+		"eth_gasPrice": [
+			[],
+			"Q"
+		],
+		"eth_accounts": [
+			[],
+			[
+				"D20"
+			]
+		],
+		"eth_blockNumber": [
+			[],
+			"Q"
+		],
+		"eth_getBalance": [
+			[
+				"D20",
+				"Q|T"
+			],
+			"Q",
+			1,
+			2
+		],
+		"eth_getStorageAt": [
+			[
+				"D20",
+				"Q",
+				"Q|T"
+			],
+			"D",
+			2,
+			2
+		],
+		"eth_getTransactionCount": [
+			[
+				"D20",
+				"Q|T"
+			],
+			"Q",
+			1,
+			2
+		],
+		"eth_getBlockTransactionCountByHash": [
+			[
+				"D32"
+			],
+			"Q",
+			1
+		],
+		"eth_getBlockTransactionCountByNumber": [
+			[
+				"Q|T"
+			],
+			"Q",
+			1
+		],
+		"eth_getUncleCountByBlockHash": [
+			[
+				"D32"
+			],
+			"Q",
+			1
+		],
+		"eth_getUncleCountByBlockNumber": [
+			[
+				"Q"
+			],
+			"Q",
+			1
+		],
+		"eth_getCode": [
+			[
+				"D20",
+				"Q|T"
+			],
+			"D",
+			1,
+			2
+		],
+		"eth_sign": [
+			[
+				"D20",
+				"D"
+			],
+			"D",
+			2
+		],
+		"eth_signTypedData": [
+			[
+				"Array|DATA",
+				"D20"
+			],
+			"D",
+			1
+		],
+		"eth_sendTransaction": [
+			[
+				"SendTransaction"
+			],
+			"D",
+			1
+		],
+		"eth_sendRawTransaction": [
+			[
+				"D"
+			],
+			"D32",
+			1
+		],
+		"eth_call": [
+			[
+				"CallTransaction",
+				"Q|T"
+			],
+			"D",
+			1,
+			2
+		],
+		"eth_estimateGas": [
+			[
+				"EstimateTransaction",
+				"Q|T"
+			],
+			"Q",
+			1
+		],
+		"eth_getBlockByHash": [
+			[
+				"D32",
+				"B"
+			],
+			"Block",
+			2
+		],
+		"eth_getBlockByNumber": [
+			[
+				"Q|T",
+				"B"
+			],
+			"Block",
+			2
+		],
+		"eth_getTransactionByHash": [
+			[
+				"D32"
+			],
+			"Transaction",
+			1
+		],
+		"eth_getTransactionByBlockHashAndIndex": [
+			[
+				"D32",
+				"Q"
+			],
+			"Transaction",
+			2
+		],
+		"eth_getTransactionByBlockNumberAndIndex": [
+			[
+				"Q|T",
+				"Q"
+			],
+			"Transaction",
+			2
+		],
+		"eth_getTransactionReceipt": [
+			[
+				"D32"
+			],
+			"Receipt",
+			1
+		],
+		"eth_getUncleByBlockHashAndIndex": [
+			[
+				"D32",
+				"Q"
+			],
+			"Block",
+			1
+		],
+		"eth_getUncleByBlockNumberAndIndex": [
+			[
+				"Q|T",
+				"Q"
+			],
+			"Block",
+			2
+		],
+		"eth_getCompilers": [
+			[],
+			[
+				"S"
+			]
+		],
+		"eth_compileLLL": [
+			[
+				"S"
+			],
+			"D",
+			1
+		],
+		"eth_compileSolidity": [
+			[
+				"S"
+			],
+			"D",
+			1
+		],
+		"eth_compileSerpent": [
+			[
+				"S"
+			],
+			"D",
+			1
+		],
+		"eth_newFilter": [
+			[
+				"Filter"
+			],
+			"Q",
+			1
+		],
+		"eth_newBlockFilter": [
+			[],
+			"Q"
+		],
+		"eth_newPendingTransactionFilter": [
+			[],
+			"Q"
+		],
+		"eth_uninstallFilter": [
+			[
+				"Q"
+			],
+			"B",
+			1
+		],
+		"eth_getFilterChanges": [
+			[
+				"Q"
+			],
+			[
+				"FilterChange"
+			],
+			1
+		],
+		"eth_getFilterLogs": [
+			[
+				"Q"
+			],
+			[
+				"FilterChange"
+			],
+			1
+		],
+		"eth_getLogs": [
+			[
+				"Filter"
+			],
+			[
+				"FilterChange"
+			],
+			1
+		],
+		"eth_getWork": [
+			[],
+			[
+				"D"
+			]
+		],
+		"eth_submitWork": [
+			[
+				"D",
+				"D32",
+				"D32"
+			],
+			"B",
+			3
+		],
+		"eth_submitHashrate": [
+			[
+				"D",
+				"D"
+			],
+			"B",
+			2
+		],
+		"db_putString": [
+			[
+				"S",
+				"S",
+				"S"
+			],
+			"B",
+			2
+		],
+		"db_getString": [
+			[
+				"S",
+				"S"
+			],
+			"S",
+			2
+		],
+		"db_putHex": [
+			[
+				"S",
+				"S",
+				"D"
+			],
+			"B",
+			2
+		],
+		"db_getHex": [
+			[
+				"S",
+				"S"
+			],
+			"D",
+			2
+		],
+		"shh_post": [
+			[
+				"SHHPost"
+			],
+			"B",
+			1
+		],
+		"shh_version": [
+			[],
+			"S"
+		],
+		"shh_newIdentity": [
+			[],
+			"D"
+		],
+		"shh_hasIdentity": [
+			[
+				"D"
+			],
+			"B"
+		],
+		"shh_newGroup": [
+			[],
+			"D"
+		],
+		"shh_addToGroup": [
+			[
+				"D"
+			],
+			"B",
+			1
+		],
+		"shh_newFilter": [
+			[
+				"SHHFilter"
+			],
+			"Q",
+			1
+		],
+		"shh_uninstallFilter": [
+			[
+				"Q"
+			],
+			"B",
+			1
+		],
+		"shh_getFilterChanges": [
+			[
+				"Q"
+			],
+			[
+				"SHHFilterChange"
+			],
+			1
+		],
+		"shh_getMessages": [
+			[
+				"Q"
+			],
+			[
+				"SHHFilterChange"
+			],
+			1
+		]
+	},
+	"tags": [
+		"latest",
+		"earliest",
+		"pending"
+	],
+	"objects": {
+		"EthSyncing": {
+			"__required": [],
+			"startingBlock": "Q",
+			"currentBlock": "Q",
+			"highestBlock": "Q"
+		},
+		"SendTransaction": {
+			"__required": [
+				"from",
+				"data"
+			],
+			"from": "D20",
+			"to": "D20",
+			"gas": "Q",
+			"gasPrice": "Q",
+			"value": "Q",
+			"data": "D",
+			"nonce": "Q"
+		},
+		"EstimateTransaction": {
+			"__required": [],
+			"from": "D20",
+			"to": "D20",
+			"gas": "Q",
+			"gasPrice": "Q",
+			"value": "Q",
+			"data": "D",
+			"nonce": "Q"
+		},
+		"CallTransaction": {
+			"__required": [
+				"to"
+			],
+			"from": "D20",
+			"to": "D20",
+			"gas": "Q",
+			"gasPrice": "Q",
+			"value": "Q",
+			"data": "D",
+			"nonce": "Q"
+		},
+		"Block": {
+			"__required": [],
+			"number": "Q",
+			"hash": "D32",
+			"parentHash": "D32",
+			"nonce": "D",
+			"sha3Uncles": "D",
+			"logsBloom": "D",
+			"transactionsRoot": "D",
+			"stateRoot": "D",
+			"receiptsRoot": "D",
+			"miner": "D",
+			"difficulty": "Q",
+			"totalDifficulty": "Q",
+			"extraData": "D",
+			"size": "Q",
+			"gasLimit": "Q",
+			"gasUsed": "Q",
+			"timestamp": "Q",
+			"transactions": [
+				"DATA|Transaction"
+			],
+			"uncles": [
+				"D"
+			]
+		},
+		"Transaction": {
+			"__required": [],
+			"hash": "D32",
+			"nonce": "Q",
+			"blockHash": "D32",
+			"blockNumber": "Q",
+			"transactionIndex": "Q",
+			"from": "D20",
+			"to": "D20",
+			"value": "Q",
+			"gasPrice": "Q",
+			"gas": "Q",
+			"input": "D"
+		},
+		"Receipt": {
+			"__required": [],
+			"transactionHash": "D32",
+			"transactionIndex": "Q",
+			"blockHash": "D32",
+			"blockNumber": "Q",
+			"cumulativeGasUsed": "Q",
+			"gasUsed": "Q",
+			"contractAddress": "D20",
+			"logs": [
+				"FilterChange"
+			]
+		},
+		"Filter": {
+			"__required": [],
+			"fromBlock": "Q|T",
+			"toBlock": "Q|T",
+			"address": "D20",
+			"topics": [
+				"D"
+			]
+		},
+		"FilterChange": {
+			"__required": [],
+			"removed": "B",
+			"logIndex": "Q",
+			"transactionIndex": "Q",
+			"transactionHash": "D32",
+			"blockHash": "D32",
+			"blockNumber": "Q",
+			"address": "D20",
+			"data": "Array|DATA",
+			"topics": [
+				"D"
+			]
+		},
+		"SHHPost": {
+			"__required": [
+				"topics",
+				"payload",
+				"priority",
+				"ttl"
+			],
+			"from": "D",
+			"to": "D",
+			"topics": [
+				"D"
+			],
+			"payload": "D",
+			"priority": "Q",
+			"ttl": "Q"
+		},
+		"SHHFilter": {
+			"__required": [
+				"topics"
+			],
+			"to": "D",
+			"topics": [
+				"D"
+			]
+		},
+		"SHHFilterChange": {
+			"__required": [],
+			"hash": "D",
+			"from": "D",
+			"to": "D",
+			"expiry": "Q",
+			"ttl": "Q",
+			"sent": "Q",
+			"topics": [
+				"D"
+			],
+			"payload": "D",
+			"workProved": "Q"
+		},
+		"SHHMessage": {
+			"__required": [],
+			"hash": "D",
+			"from": "D",
+			"to": "D",
+			"expiry": "Q",
+			"ttl": "Q",
+			"sent": "Q",
+			"topics": [
+				"D"
+			],
+			"payload": "D",
+			"workProved": "Q"
+		}
+	}
+};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+var BN = __webpack_require__(2);
+var stripHexPrefix = __webpack_require__(0);
+
+/**
+ * Returns a BN object, converts a number value to a BN
+ * @param {String|Number|Object} `arg` input a string number, hex string number, number, BigNumber or BN object
+ * @return {Object} `output` BN object of the number
+ * @throws if the argument is not an array, object that isn't a bignumber, not a string number or number
+ */
+module.exports = function numberToBN(arg) {
+  if (typeof arg === 'string' || typeof arg === 'number') {
+    var multiplier = new BN(1); // eslint-disable-line
+    var formattedString = String(arg).toLowerCase().trim();
+    var isHexPrefixed = formattedString.substr(0, 2) === '0x' || formattedString.substr(0, 3) === '-0x';
+    var stringArg = stripHexPrefix(formattedString); // eslint-disable-line
+    if (stringArg.substr(0, 1) === '-') {
+      stringArg = stripHexPrefix(stringArg.slice(1));
+      multiplier = new BN(-1, 10);
+    }
+    stringArg = stringArg === '' ? '0' : stringArg;
+
+    if ((!stringArg.match(/^-?[0-9]+$/) && stringArg.match(/^[0-9A-Fa-f]+$/))
+      || stringArg.match(/^[a-fA-F]+$/)
+      || (isHexPrefixed === true && stringArg.match(/^[0-9A-Fa-f]+$/))) {
+      return new BN(stringArg, 16).mul(multiplier);
+    }
+
+    if ((stringArg.match(/^-?[0-9]+$/) || stringArg === '') && isHexPrefixed === false) {
+      return new BN(stringArg, 10).mul(multiplier);
+    }
+  } else if (typeof arg === 'object' && arg.toString && (!arg.pop && !arg.push)) {
+    if (arg.toString(10).match(/^-?[0-9]+$/) && (arg.mul || arg.dividedToIntegerBy)) {
+      return new BN(arg.toString(10), 10);
+    }
+  }
+
+  throw new Error('[number-to-bn] while converting number ' + JSON.stringify(arg) + ' to BN.js instance, error: invalid number value. Value must be an integer, hex string, BN or BigNumber instance. Note, decimals are not supported.');
+}
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+'use strict';
+
+var schema = __webpack_require__(5);
+var util = __webpack_require__(4);
+var numberToBN = __webpack_require__(6);
+var stripHexPrefix = __webpack_require__(0);
+var BN = __webpack_require__(2);
+var padToEven = util.padToEven;
+var arrayContainsArray = util.arrayContainsArray;
+var getBinarySize = util.getBinarySize;
+var ten = new BN('10', 10);
+
+/**
+ * Format quantity values, either encode to hex or decode to BigNumber
+ * should intake null, stringNumber, number, BN
+ *
+ * @method formatQuantity
+ * @param {String|BigNumber|Number} value quantity or tag to convert
+ * @param {Boolean} encode to hex or decode to BigNumber
+ * @returns {Optional} output to BigNumber or string
+ * @throws error if value is a float
+ */
+function formatQuantity(value, encode, pad) {
+  if (['string', 'number', 'object'].indexOf(typeof value) === -1 || value === null) {
+    return value;
+  }
+
+  var numberValue = numberToBN(value);
+  var numPadding = numberValue.lt(ten) && pad === true ? '0' : '';
+
+  if (numberToBN(value).isNeg()) {
+    throw new Error('[ethjs-format] while formatting quantity \'' + numberValue.toString(10) + '\', invalid negative number. Number must be positive or zero.');
+  }
+
+  return encode ? '0x' + numPadding + numberValue.toString(16) : numberValue;
+}
+
+/**
+ * Format quantity or tag, if tag bypass return, else format quantity
+ * should intake null, stringNumber, number, BN, string tag
+ *
+ * @method formatQuantityOrTag
+ * @param {String|BigNumber|Number} value quantity or tag to convert
+ * @param {Boolean} encode encode the number to hex or decode to BigNumber
+ * @returns {Object|String} output to BigNumber or string
+ * @throws error if value is a float
+ */
+function formatQuantityOrTag(value, encode) {
+  var output = value; // eslint-disable-line
+
+  // if the value is a tag, bypass
+  if (schema.tags.indexOf(value) === -1) {
+    output = formatQuantity(value, encode);
+  }
+
+  return output;
+}
+
+/**
+ * FormatData under strict conditions hex prefix
+ *
+ * @method formatData
+ * @param {String} value the bytes data to be formatted
+ * @param {Number} byteLength the required byte length (usually 20 or 32)
+ * @returns {String} output output formatted data
+ * @throws error if minimum length isnt met
+ */
+function formatData(value, byteLength) {
+  var output = value; // eslint-disable-line
+  var outputByteLength = 0; // eslint-disable-line
+
+  // prefix only under strict conditions, else bypass
+  if (typeof value === 'string') {
+    output = '0x' + padToEven(stripHexPrefix(value));
+    outputByteLength = getBinarySize(output);
+  }
+
+  // format double padded zeros.
+  if (output === '0x00') {
+    output = '0x0';
+  }
+
+  // throw if bytelength is not correct
+  if (typeof byteLength === 'number' && value !== null && output !== '0x' && output !== '0x0' // support empty values
+  && (!/^[0-9A-Fa-f]+$/.test(stripHexPrefix(output)) || outputByteLength !== 2 + byteLength * 2)) {
+    throw new Error('[ethjs-format] hex string \'' + output + '\' must be an alphanumeric ' + (2 + byteLength * 2) + ' utf8 byte hex (chars: a-fA-F) string, is ' + outputByteLength + ' bytes');
+  }
+
+  return output;
+}
+
+/**
+ * Format object, even with random RPC caviets
+ *
+ * @method formatObject
+ * @param {String|Array} formatter the unit to convert to, default ether
+ * @param {Object} value the object value
+ * @param {Boolean} encode encode to hex or decode to BigNumber
+ * @returns {Object} output object
+ * @throws error if value is a float
+ */
+function formatObject(formatter, value, encode) {
+  var output = Object.assign({}, value); // eslint-disable-line
+  var formatObject = null; // eslint-disable-line
+
+  // if the object is a string flag, then retreive the object
+  if (typeof formatter === 'string') {
+    if (formatter === 'Boolean|EthSyncing') {
+      formatObject = Object.assign({}, schema.objects.EthSyncing);
+    } else if (formatter === 'DATA|Transaction') {
+      formatObject = Object.assign({}, schema.objects.Transaction);
+    } else {
+      formatObject = Object.assign({}, schema.objects[formatter]);
+    }
+  }
+
+  // check if all required data keys are fulfilled
+  if (!arrayContainsArray(Object.keys(value), formatObject.__required)) {
+    // eslint-disable-line
+    throw new Error('[ethjs-format] object ' + JSON.stringify(value) + ' must contain properties: ' + formatObject.__required.join(', ')); // eslint-disable-line
+  }
+
+  // assume formatObject is an object, go through keys and format each
+  Object.keys(formatObject).forEach(function (valueKey) {
+    if (valueKey !== '__required' && typeof value[valueKey] !== 'undefined') {
+      output[valueKey] = format(formatObject[valueKey], value[valueKey], encode);
+    }
+  });
+
+  return output;
+}
+
+/**
+ * Format array
+ *
+ * @method formatArray
+ * @param {String|Array} formatter the unit to convert to, default ether
+ * @param {Object} value the value in question
+ * @param {Boolean} encode encode to hex or decode to BigNumber
+ * @param {Number} lengthRequirement the required minimum array length
+ * @returns {Object} output object
+ * @throws error if minimum length isnt met
+ */
+function formatArray(formatter, value, encode, lengthRequirement) {
+  var output = value.slice(); // eslint-disable-line
+  var formatObject = formatter; // eslint-disable-line
+
+  // if the formatter is an array or data, then make format object an array data
+  if (formatter === 'Array|DATA') {
+    formatObject = ['D'];
+  }
+
+  // if formatter is a FilterChange and acts like a BlockFilter
+  // or PendingTx change format object to tx hash array
+  if (formatter === 'FilterChange' && typeof value[0] === 'string') {
+    formatObject = ['D32'];
+  }
+
+  // enforce minimum value length requirements
+  if (encode === true && typeof lengthRequirement === 'number' && value.length < lengthRequirement) {
+    throw new Error('array ' + JSON.stringify(value) + ' must contain at least ' + lengthRequirement + ' params, but only contains ' + value.length + '.'); // eslint-disable-line
+  }
+
+  // make new array, avoid mutation
+  formatObject = formatObject.slice();
+
+  // assume formatObject is an object, go through keys and format each
+  value.forEach(function (valueKey, valueIndex) {
+    // use key zero as formatter for all values, unless otherwise specified
+    var formatObjectKey = 0; // eslint-disable-line
+
+    // if format array is exact, check each argument against formatter argument
+    if (formatObject.length > 1) {
+      formatObjectKey = valueIndex;
+    }
+
+    output[valueIndex] = format(formatObject[formatObjectKey], valueKey, encode);
+  });
+
+  return output;
+}
+
+/**
+ * Format various kinds of data to RPC spec or into digestable JS objects
+ *
+ * @method format
+ * @param {String|Array} formatter the data formatter
+ * @param {String|Array|Object|Null|Number} value the data value input
+ * @param {Boolean} encode encode to hex or decode to BigNumbers, Strings, Booleans, Null
+ * @param {Number} lengthRequirement the minimum data length requirement
+ * @throws error if minimum length isnt met
+ */
+function format(formatter, value, encode, lengthRequirement) {
+  var output = value; // eslint-disable-line
+
+  // if formatter is quantity or quantity or tag
+  if (formatter === 'Q') {
+    output = formatQuantity(value, encode);
+  } else if (formatter === 'QP') {
+    output = formatQuantity(value, encode, true);
+  } else if (formatter === 'Q|T') {
+    output = formatQuantityOrTag(value, encode);
+  } else if (formatter === 'D') {
+    output = formatData(value); // dont format data flagged objects like compiler output
+  } else if (formatter === 'D20') {
+    output = formatData(value, 20); // dont format data flagged objects like compiler output
+  } else if (formatter === 'D32') {
+    output = formatData(value, 32); // dont format data flagged objects like compiler output
+  } else {
+    // if value is an object or array
+    if (typeof value === 'object' && value !== null && Array.isArray(value) === false) {
+      output = formatObject(formatter, value, encode);
+    } else if (Array.isArray(value)) {
+      output = formatArray(formatter, value, encode, lengthRequirement);
+    }
+  }
+
+  return output;
+}
+
+/**
+ * Format RPC inputs generally to the node or TestRPC
+ *
+ * @method formatInputs
+ * @param {Object} method the data formatter
+ * @param {Array} inputs the data inputs
+ * @returns {Array} output the formatted inputs array
+ * @throws error if minimum length isnt met
+ */
+function formatInputs(method, inputs) {
+  return format(schema.methods[method][0], inputs, true, schema.methods[method][2]);
+}
+
+/**
+ * Format RPC outputs generally from the node or TestRPC
+ *
+ * @method formatOutputs
+ * @param {Object} method the data formatter
+ * @param {Array|String|Null|Boolean|Object} outputs the data inputs
+ * @returns {Array|String|Null|Boolean|Object} output the formatted data
+ */
+function formatOutputs(method, outputs) {
+  return format(schema.methods[method][1], outputs, false);
+}
+
+// export formatters
+module.exports = {
+  schema: schema,
+  formatQuantity: formatQuantity,
+  formatQuantityOrTag: formatQuantityOrTag,
+  formatObject: formatObject,
+  formatArray: formatArray,
+  format: format,
+  formatInputs: formatInputs,
+  formatOutputs: formatOutputs
+};
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+"use strict";
+'use strict'
+
+exports.byteLength = byteLength
+exports.toByteArray = toByteArray
+exports.fromByteArray = fromByteArray
+
+var lookup = []
+var revLookup = []
+var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
+
+var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+for (var i = 0, len = code.length; i < len; ++i) {
+  lookup[i] = code[i]
+  revLookup[code.charCodeAt(i)] = i
+}
+
+// Support decoding URL-safe base64 strings, as Node.js does.
+// See: https://en.wikipedia.org/wiki/Base64#URL_applications
+revLookup['-'.charCodeAt(0)] = 62
+revLookup['_'.charCodeAt(0)] = 63
+
+function placeHoldersCount (b64) {
+  var len = b64.length
+  if (len % 4 > 0) {
+    throw new Error('Invalid string. Length must be a multiple of 4')
+  }
+
+  // the number of equal signs (place holders)
+  // if there are two placeholders, than the two characters before it
+  // represent one byte
+  // if there is only one, then the three characters before it represent 2 bytes
+  // this is just a cheap hack to not do indexOf twice
+  return b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0
+}
+
+function byteLength (b64) {
+  // base64 is 4/3 + up to two characters of the original data
+  return (b64.length * 3 / 4) - placeHoldersCount(b64)
+}
+
+function toByteArray (b64) {
+  var i, l, tmp, placeHolders, arr
+  var len = b64.length
+  placeHolders = placeHoldersCount(b64)
+
+  arr = new Arr((len * 3 / 4) - placeHolders)
+
+  // if there are placeholders, only get up to the last complete 4 chars
+  l = placeHolders > 0 ? len - 4 : len
+
+  var L = 0
+
+  for (i = 0; i < l; i += 4) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
+    arr[L++] = (tmp >> 16) & 0xFF
+    arr[L++] = (tmp >> 8) & 0xFF
+    arr[L++] = tmp & 0xFF
+  }
+
+  if (placeHolders === 2) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
+    arr[L++] = tmp & 0xFF
+  } else if (placeHolders === 1) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
+    arr[L++] = (tmp >> 8) & 0xFF
+    arr[L++] = tmp & 0xFF
+  }
+
+  return arr
+}
+
+function tripletToBase64 (num) {
+  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
+}
+
+function encodeChunk (uint8, start, end) {
+  var tmp
+  var output = []
+  for (var i = start; i < end; i += 3) {
+    tmp = ((uint8[i] << 16) & 0xFF0000) + ((uint8[i + 1] << 8) & 0xFF00) + (uint8[i + 2] & 0xFF)
+    output.push(tripletToBase64(tmp))
+  }
+  return output.join('')
+}
+
+function fromByteArray (uint8) {
+  var tmp
+  var len = uint8.length
+  var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
+  var output = ''
+  var parts = []
+  var maxChunkLength = 16383 // must be multiple of 3
+
+  // go through the array every three bytes, we'll deal with trailing stuff later
+  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
+  }
+
+  // pad the end with zeros, but make sure to not forget the extra bytes
+  if (extraBytes === 1) {
+    tmp = uint8[len - 1]
+    output += lookup[tmp >> 2]
+    output += lookup[(tmp << 4) & 0x3F]
+    output += '=='
+  } else if (extraBytes === 2) {
+    tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
+    output += lookup[tmp >> 10]
+    output += lookup[(tmp >> 4) & 0x3F]
+    output += lookup[(tmp << 2) & 0x3F]
+    output += '='
+  }
+
+  parts.push(output)
+
+  return parts.join('')
+}
+
+
+/***/ },
 /* 9 */
 /***/ function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
-  var eLen = nBytes * 8 - mLen - 1
+  var eLen = (nBytes * 8) - mLen - 1
   var eMax = (1 << eLen) - 1
   var eBias = eMax >> 1
   var nBits = -7
@@ -6622,12 +6642,12 @@ exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   e = s & ((1 << (-nBits)) - 1)
   s >>= (-nBits)
   nBits += eLen
-  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+  for (; nBits > 0; e = (e * 256) + buffer[offset + i], i += d, nBits -= 8) {}
 
   m = e & ((1 << (-nBits)) - 1)
   e >>= (-nBits)
   nBits += mLen
-  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+  for (; nBits > 0; m = (m * 256) + buffer[offset + i], i += d, nBits -= 8) {}
 
   if (e === 0) {
     e = 1 - eBias
@@ -6642,7 +6662,7 @@ exports.read = function (buffer, offset, isLE, mLen, nBytes) {
 
 exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   var e, m, c
-  var eLen = nBytes * 8 - mLen - 1
+  var eLen = (nBytes * 8) - mLen - 1
   var eMax = (1 << eLen) - 1
   var eBias = eMax >> 1
   var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
@@ -6675,7 +6695,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
       m = 0
       e = eMax
     } else if (e + eBias >= 1) {
-      m = (value * c - 1) * Math.pow(2, mLen)
+      m = ((value * c) - 1) * Math.pow(2, mLen)
       e = e + eBias
     } else {
       m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
