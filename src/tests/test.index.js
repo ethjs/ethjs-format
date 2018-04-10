@@ -505,6 +505,18 @@ describe('test ethjs-format object', () => {
       assert.equal(format.format('Q', stringNumber, true), '0x37836E3012'.toLowerCase());
       assert.equal(format.format('Q', noPrefixHexNumber, true), '0x21d21a2'.toLowerCase());
       assert.equal(format.format('Q', prefixHexNumber, true), '0x21d21a2'.toLowerCase());
+
+      assert.equal(format.format('QP', new BN(0), true), '0x0');
+      assert.equal(format.format('QP', new BN(1), true), '0x01');
+      assert.equal(format.format('QP', new BN(10), true), '0xa');
+
+      assert.equal(format.format('QP', nullNumber, true), null);
+      assert.equal(format.format('QP', undefinedNumber, true), undefinedNumber);
+      assert.equal(format.format('QP', bignum, true), '0xB115'.toLowerCase());
+      assert.equal(format.format('QP', num, true), '0x138157F2'.toLowerCase());
+      assert.equal(format.format('QP', stringNumber, true), '0x37836E3012'.toLowerCase());
+      assert.equal(format.format('QP', noPrefixHexNumber, true), '0x21d21a2'.toLowerCase());
+      assert.equal(format.format('QP', prefixHexNumber, true), '0x21d21a2'.toLowerCase());
     });
 
     it('should decode QUANTITY normally', () => {

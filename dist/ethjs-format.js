@@ -5861,14 +5861,14 @@ module.exports = {
 		],
 		"eth_uninstallFilter": [
 			[
-				"Q"
+				"QP"
 			],
 			"B",
 			1
 		],
 		"eth_getFilterChanges": [
 			[
-				"Q"
+				"QP"
 			],
 			[
 				"FilterChange"
@@ -5877,7 +5877,7 @@ module.exports = {
 		],
 		"eth_getFilterLogs": [
 			[
-				"Q"
+				"QP"
 			],
 			[
 				"FilterChange"
@@ -6271,7 +6271,7 @@ function formatQuantity(value, encode, pad) {
   }
 
   var numberValue = numberToBN(value);
-  var numPadding = numberValue.lt(ten) && pad === true ? '0' : '';
+  var numPadding = numberValue.lt(ten) && pad === true && !numberValue.isZero() ? '0' : '';
 
   if (numberToBN(value).isNeg()) {
     throw new Error('[ethjs-format] while formatting quantity \'' + numberValue.toString(10) + '\', invalid negative number. Number must be positive or zero.');
